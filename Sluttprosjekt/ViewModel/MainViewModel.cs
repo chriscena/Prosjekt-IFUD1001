@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Friends.Lib.Helpers;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using Sluttprosjekt.Agent;
 using Sluttprosjekt.Helpers;
@@ -24,101 +25,103 @@ namespace Sluttprosjekt.ViewModel
         private readonly IDataService _dataService;
         private readonly INavigationService _navigationService;
 
-        public ObservableCollection<Friend> FriendsList
+        public MainViewModel(INavigationService navigationService, IDataService dataService)
+        {
+            _navigationService = navigationService;
+            _dataService = dataService;
+            MessengerInstance.Register <MemberAdded>(this, _ => UpdateMembersListAfterAdd());
+            MembersList = new ObservableCollection<Member>();
+            ProjectsList = new ObservableCollection<Project>();
+
+            UpdateMembersList();
+            
+#if DEBUG
+            if (IsInDesignMode)
+            {
+                //Refresh();
+            }
+#endif
+        }
+
+        private void UpdateMembersListAfterAdd()
+        {
+            SimpleIoc.Default.Unregister<AddMemberViewModel>();
+            UpdateMembersList();
+            SimpleIoc.Default.Register<AddMemberViewModel>();
+        }
+
+        private void UpdateMembersList()
+        {
+            var list = _dataService.GetMembers();
+            MembersList.Clear();
+            foreach (var member in list)
+            {
+                MembersList.Add(member);
+            }
+        }
+
+
+        public ObservableCollection<Member> MembersList
         {
             get;
             private set;
         }
 
-        private RelayCommand _refreshCommand;
-
-        /// <summary>
-        /// Gets the RefreshCommand.
-        /// </summary>
-        public RelayCommand RefreshCommand
+        public ObservableCollection<Project> ProjectsList
         {
-            get
-            {
-                return _refreshCommand
-                    ?? (_refreshCommand = new RelayCommand(
-                                          async () =>
-                                          {
-                                              await Refresh();
-                                          }));
-            }
+            get;
+            private set;
         }
 
-        public async Task Refresh()
-        {
-            try
-            {
-                var list = (await _dataService.GetFriends()).ToList();
-
-                FriendsList.Clear();
-
-                foreach (var friend in list)
-                {
-                    FriendsList.Add(friend);
-                }
-
-                ScheduledAgent.SaveSettings(list.Count);
-            }
-            catch (Exception ex)
-            {
-                DialogService.ShowError(ex, "Error", "OK", null);
-            }
-        }
-
-        private RelayCommand<Friend> _showDetailsCommand;
+        private RelayCommand _viewProjectsCommand;
 
         /// <summary>
         /// Gets the ShowDetailsCommand.
         /// </summary>
-        public RelayCommand<Friend> ShowDetailsCommand
+        public RelayCommand ViewProjectsCommand
         {
             get
             {
-                return _showDetailsCommand
-                    ?? (_showDetailsCommand = new RelayCommand<Friend>(
-                                          friend =>
-                                          {
-                                              _navigationService.Navigate("DetailsPage", friend);
-                                          }));
+                return _viewProjectsCommand
+                    ?? (_viewProjectsCommand = new RelayCommand(() =>
+                                              _navigationService.Navigate("ProjectsPage")
+                                          ));
             }
         }
 
-        private RelayCommand<Friend> _saveCommand;
+        private RelayCommand<Transaction> _saveCommand;
+        private RelayCommand _addMemberCommand;
 
         /// <summary>
         /// Gets the SaveCommand.
         /// </summary>
-        public RelayCommand<Friend> SaveCommand
+        public RelayCommand<Transaction> SaveCommand
         {
             get
             {
                 return _saveCommand
-                    ?? (_saveCommand = new RelayCommand<Friend>(
+                    ?? (_saveCommand = new RelayCommand<Transaction>(
                                           async friend =>
                                           {
-                                              try
-                                              {
-                                                  var id = await _dataService.SaveFriend(friend);
+                                              //try
+                                              //{
+                                              //    var id = await _dataService.SaveFriend(friend);
 
-                                                  var intId = int.Parse(id);
+                                              //    var intId = int.Parse(id);
 
-                                                  if (intId > 0)
-                                                  {
-                                                      friend.Id = id;
-                                                  }
-                                                  else
-                                                  {
-                                                      DialogService.ShowMessage("Error when saving", null);
-                                                  }
-                                              }
-                                              catch (Exception ex)
-                                              {
-                                                  DialogService.ShowError(ex, "Error", "OK", null);
-                                              }
+                                              //    if (intId > 0)
+                                              //    {
+                                              //        friend.Id = id;
+                                              //    }
+                                              //    else
+                                              //    {
+                                              //        DialogService.ShowMessage("Error when saving", null);
+                                              //    }
+                                              //}
+                                              //catch (Exception ex)
+                                              //{
+                                              //    DialogService.ShowError(ex, "Error", "OK", null);
+                                              //}
                                           }));
             }
         }
@@ -131,38 +134,12 @@ namespace Sluttprosjekt.ViewModel
             }
         }
 
-        public MainViewModel(
-            IDataService dataService,
-            INavigationService navigationService)
+        public RelayCommand AddMemberCommand
         {
-            _dataService = dataService;
-            _navigationService = navigationService;
-            FriendsList = new ObservableCollection<Friend>();
-
-#if DEBUG
-            if (IsInDesignMode)
+            get
             {
-                Refresh();
-            }
-#endif
-        }
-
-        public void UpdateFiend(string serial)
-        {
-            var friend = new Friend(serial)
-            {
-                IsDirty = true
-            };
-
-            var existing = FriendsList.FirstOrDefault(f => f.Id == friend.Id);
-
-            if (existing != null)
-            {
-                existing.Update(friend);
-            }
-            else
-            {
-                FriendsList.Add(friend);
+                return _addMemberCommand ??
+                       (_addMemberCommand = new RelayCommand(() => _navigationService.Navigate("AddMemberPage")));
             }
         }
     }

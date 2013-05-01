@@ -104,8 +104,8 @@ namespace Sluttprosjekt
 
         private async void ReadClick(object sender, EventArgs e)
         {
-            var friend = (Friend)DataContext;
-            await _synth.SpeakTextAsync(friend.Message);
+            //var friend = (Friend)DataContext;
+            //await _synth.SpeakTextAsync(friend.Message);
         }
 
         private void ShowMapClick(object sender, RoutedEventArgs e)

@@ -6,7 +6,7 @@ using System.Net;
 using System.Windows;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
-using Sluttprosjekt.Model;
+//using Sluttprosjekt.Model;
 
 namespace Sluttprosjekt.Agent
 {
@@ -47,34 +47,34 @@ namespace Sluttprosjekt.Agent
         /// </remarks>
         protected async override void OnInvoke(ScheduledTask task)
         {
-            var service = new DataService();
-            var list = await service.GetFriends();
+            //var service = new DataService();
+            //var list = await service.GetFriends();
 
-            int friendsCount;
-            IsolatedStorageSettings.ApplicationSettings
-                .TryGetValue(CountSettingsKey, out friendsCount);
+            //int friendsCount;
+            //IsolatedStorageSettings.ApplicationSettings
+            //    .TryGetValue(CountSettingsKey, out friendsCount);
 
-            if (list.Count != friendsCount)
-            {
-                ShowToast("Friends list changed!");
+            //if (list.Count != friendsCount)
+            //{
+            //    ShowToast("Friends list changed!");
 
-                var mainTile = ShellTile.ActiveTiles.First();
+            //    var mainTile = ShellTile.ActiveTiles.First();
 
-                mainTile.Update(new StandardTileData
-                {
-                    Count = list.Count,
-                    BackTitle = "List changed!"
-                });
+            //    mainTile.Update(new StandardTileData
+            //    {
+            //        Count = list.Count,
+            //        BackTitle = "List changed!"
+            //    });
 
-                SaveSettings(list.Count);
-            }
+            //    SaveSettings(list.Count);
+            //}
 
-            // If debugging is enabled, use LaunchForTest to launch the agent in one minute.
-            ScheduledActionService.LaunchForTest(
-                task.Name,
-                TimeSpan.FromMinutes(1));
+            //// If debugging is enabled, use LaunchForTest to launch the agent in one minute.
+            //ScheduledActionService.LaunchForTest(
+            //    task.Name,
+            //    TimeSpan.FromMinutes(1));
 
-            NotifyComplete();
+            //NotifyComplete();
         }
 
         private void ShowToast(string message)

@@ -7,25 +7,26 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Sluttprosjekt.Helpers;
 using Sluttprosjekt.ViewModel;
 
 namespace Sluttprosjekt
 {
-    public partial class MainPage
+    public partial class ProjectsPage
     {
-        public MainPage()
+        public ProjectsPage()
         {
             InitializeComponent();
-        }
-
+        }        
+        
         /// <summary>
         /// Gets the view's ViewModel.
         /// </summary>
-        public MainViewModel ViewModel
+        public ProjectsViewModel ViewModel
         {
             get
             {
-                return (MainViewModel)DataContext;
+                return (ProjectsViewModel)DataContext;
             }
         }
 
@@ -34,14 +35,14 @@ namespace Sluttprosjekt
             ViewModel.AddMemberCommand.Execute(null);
         }
 
-        private void AddTransactionClick(object sender, EventArgs e)
+        private void AddProjectClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            ViewModel.AddProjectsCommand.Execute(null);
         }
 
-        private void ShowProjectsClick(object sender, EventArgs e)
+        private void PhonePageBase_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.ViewProjectsCommand.Execute(null);
+            ViewModel.AddProjectIfNeeded();
         }
     }
 }

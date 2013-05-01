@@ -12,18 +12,13 @@ namespace Sluttprosjekt.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
-            }
-            else
-            {
-                SimpleIoc.Default.Register<IDataService, DataService>();
-            }
-
+            SimpleIoc.Default.Register<IDataService>(() => new DataService());
             SimpleIoc.Default.Register<INavigationService>(() => new NavigationService());
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<MapViewModel>();
+            SimpleIoc.Default.Register<ProjectsViewModel>();
+            SimpleIoc.Default.Register<AddProjectViewModel>();
+            SimpleIoc.Default.Register<AddMemberViewModel>();
+            SimpleIoc.Default.Register<ActiveProjectViewModel>();
         }
 
         /// <summary>
@@ -36,21 +31,63 @@ namespace Sluttprosjekt.ViewModel
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return SimpleIoc.Default.GetInstance<MainViewModel>();
             }
         }
 
         /// <summary>
-        /// Gets the Map property.
+        /// Gets the AddProject property.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public MapViewModel Map
+        public AddProjectViewModel AddProject
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MapViewModel>();
+                return SimpleIoc.Default.GetInstance<AddProjectViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the AddProject property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public AddMemberViewModel AddMember
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddMemberViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the AddProject property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public ActiveProjectViewModel ActiveProjectViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ActiveProjectViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the AddProject property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public ProjectsViewModel ProjectsViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ProjectsViewModel>();
             }
         }
 
