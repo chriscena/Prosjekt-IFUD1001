@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Sluttprosjekt.ViewModel;
 
 namespace Sluttprosjekt
 {
@@ -17,14 +18,16 @@ namespace Sluttprosjekt
             InitializeComponent();
         }
 
+        public AddTransactionViewModel ViewModel { get { return (AddTransactionViewModel) DataContext; } }
+
         private void SaveClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            ViewModel.SaveCommand.Execute(DataContext);
         }
 
         private void CancelClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            NavigationService.GoBack();
         }
     }
 }

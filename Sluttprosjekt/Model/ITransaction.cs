@@ -8,7 +8,7 @@ namespace Sluttprosjekt.Model
 {
     public interface ITransaction : IEntity
     {
-        double Amount { get; set; }
+        decimal Amount { get; set; }
         int PaidBy { get; set; }
         Member PaidByMember { get; set; }
         DateTime PaidDate { get; set; }

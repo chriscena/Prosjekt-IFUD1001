@@ -36,7 +36,7 @@ namespace Sluttprosjekt
 
         private void AddTransactionClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            ViewModel.AddTransactionCommand.Execute(null);
         }
 
         private void ShowProjectsClick(object sender, EventArgs e)

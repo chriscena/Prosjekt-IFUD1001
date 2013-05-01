@@ -91,6 +91,7 @@ namespace Sluttprosjekt.ViewModel
 
         private RelayCommand<Transaction> _saveCommand;
         private RelayCommand _addMemberCommand;
+        private RelayCommand _addTransactionCommand;
 
         /// <summary>
         /// Gets the SaveCommand.
@@ -140,6 +141,15 @@ namespace Sluttprosjekt.ViewModel
             {
                 return _addMemberCommand ??
                        (_addMemberCommand = new RelayCommand(() => _navigationService.Navigate("AddMemberPage")));
+            }
+        }
+
+        public RelayCommand AddTransactionCommand
+        {
+            get
+            {
+                return _addTransactionCommand ??
+                       (_addTransactionCommand = new RelayCommand(() => _navigationService.Navigate("AddTransactionPage")));
             }
         }
     }

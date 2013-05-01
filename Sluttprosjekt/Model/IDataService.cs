@@ -15,6 +15,7 @@ namespace Sluttprosjekt.Model
         void SaveMember(Member member);
         List<Member> GetMembers();
         Project GetActiveProject();
+        void SaveTransaction(Transaction transaction);
     }
 
     public class DataService : IDataService
@@ -58,6 +59,12 @@ namespace Sluttprosjekt.Model
         public Project GetActiveProject()
         {
             return _dataContext.Projects.SingleOrDefault(p => p.IsSelected);
+        }
+
+        public void SaveTransaction(Transaction transaction)
+        {
+            _dataContext.Transactions.InsertOnSubmit(transaction);
+            _dataContext.SubmitChanges();
         }
 
         public void SaveMember(Member member)

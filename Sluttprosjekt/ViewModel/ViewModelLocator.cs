@@ -18,6 +18,7 @@ namespace Sluttprosjekt.ViewModel
             SimpleIoc.Default.Register<ProjectsViewModel>();
             SimpleIoc.Default.Register<AddProjectViewModel>();
             SimpleIoc.Default.Register<AddMemberViewModel>();
+            SimpleIoc.Default.Register<AddTransactionViewModel>();
             SimpleIoc.Default.Register<ActiveProjectViewModel>();
         }
 
@@ -88,6 +89,20 @@ namespace Sluttprosjekt.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<ProjectsViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the AddProject property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public AddTransactionViewModel AddTransaction
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddTransactionViewModel>();
             }
         }
 

@@ -20,10 +20,10 @@ namespace Sluttprosjekt.Model
         public string Description { get; set; }
         
         [Column]
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
 
         private EntityRef<Member> _member;
-        [Association(IsForeignKey = true, ThisKey = "PaidBy", OtherKey = "Id")]
+        [Association(IsForeignKey = true, ThisKey = "PaidBy", OtherKey = "Id", Storage = "_member")]
         public Member PaidByMember
         {
             get { return _member.Entity; }
