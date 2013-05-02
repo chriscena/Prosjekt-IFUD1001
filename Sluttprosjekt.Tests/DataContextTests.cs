@@ -31,7 +31,7 @@ namespace Sluttprosjekt.Tests
             var transaction = new Transaction
                 {
                     Description = "Hotell",
-                    Amount = 1234.56,
+                    Amount = 1234.56m,
                     PaidBy = 1,
                     Id = 1,
                     PaidDate = new DateTime(2013, 04, 01)

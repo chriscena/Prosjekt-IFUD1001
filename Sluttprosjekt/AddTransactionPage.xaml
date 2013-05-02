@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:helper="clr-namespace:Sluttprosjekt.Helpers"
+    xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -33,15 +34,16 @@
 
         </Grid>
     </Grid>
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar>
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/save.png"
+    <bar:Bindable.ApplicationBar>
+        <bar:BindableApplicationBar>
+            <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/save.png"
                                             Text="lagre"
-                                            Click="SaveClick" />
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/cancel.png"
+                                            Command="{Binding SaveCommand}" />
+            <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/cancel.png"
                                             Text="avbryt"
-                                            Click="CancelClick" />
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
+                                            Command="{Binding CancelCommand}" />
+        </bar:BindableApplicationBar>
+    </bar:Bindable.ApplicationBar>
+
 
 </helper:PhonePageBase>

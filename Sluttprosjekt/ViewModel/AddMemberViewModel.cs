@@ -21,20 +21,26 @@ namespace Sluttprosjekt.ViewModel
             _dataService = dataService;
         }
 
+        private string _memberName;
+        private RelayCommand _saveCommand;
+        private RelayCommand _cancelCommand;
+
         public string MemberName
         {
             get { return _memberName; }
             set { _memberName = value; RaisePropertyChanged(() => MemberName); }
         }
 
-        private RelayCommand _saveCommand;
-        private string _memberName;
-
         public RelayCommand SaveCommand { get { return _saveCommand ?? (_saveCommand = new RelayCommand(SaveMember)); } }
+
+        public RelayCommand CancelCommand
+        {
+            get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(() => _navigationService.GoBack())); }
+        }
 
         private void SaveMember()
         {
-
+            BindingHelper.UpdateSource();
             var member = new Member { Name = MemberName };
             _dataService.SaveMember(member);
             MessengerInstance.Send(new MemberAdded());

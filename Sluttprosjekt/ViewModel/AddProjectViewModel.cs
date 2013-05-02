@@ -22,20 +22,29 @@ namespace Sluttprosjekt.ViewModel
             _dataService = dataService;
         }
 
+        private RelayCommand _saveCommand;
+        private string _projectName;
+        private RelayCommand _cancelCommand;
+
         public string ProjectName
         {
             get { return _projectName; }
             set { _projectName = value; RaisePropertyChanged(() => ProjectName); }
         }
 
-        private RelayCommand _saveCommand;
-        private string _projectName;
+        public RelayCommand SaveCommand
+        {
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(SaveProject)); }
+        }
 
-        public RelayCommand SaveCommand { get { return _saveCommand ?? (_saveCommand = new RelayCommand(SaveProject)); } }
+        public RelayCommand CancelCommand
+        {
+            get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(() => _navigationService.GoBack())); }
+        }
 
         private void SaveProject()
         {
-
+            BindingHelper.UpdateSource();
             var project = new Project { Name = ProjectName };
             _dataService.SaveProject(project);
             MessengerInstance.Send(new ActiveProjectChanged { ActiveProject = project });

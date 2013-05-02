@@ -5,6 +5,7 @@
                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                        xmlns:ignore="http://www.ignore.com"
+                       xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar" 
                        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                        xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP8"
                        xmlns:helpers="clr-namespace:Sluttprosjekt.Helpers" xmlns:Sluttprosjekt="clr-namespace:Sluttprosjekt"
@@ -37,19 +38,20 @@
         </phone:Pivot>
     </Grid>
 
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar>
-            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/new.png"
+    <bar:Bindable.ApplicationBar>
+        <bar:BindableApplicationBar>
+            <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/new.png"
                                             Text="ny betaling"
-                                            Click="AddTransactionClick" />
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem 
+                                            Command="{Binding AddTransactionCommand}" />
+            <bar:BindableApplicationBar.MenuItems>
+                <bar:BindableApplicationBarMenuItem 
                                             Text="ny person"
-                                            Click="AddPersonClick" />
-                <shell:ApplicationBarMenuItem 
+                                            Command="{Binding AddMemberCommand}" />
+                <bar:BindableApplicationBarMenuItem 
                                             Text="vis spleiselag"
-                                            Click="ShowProjectsClick" />
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
+                                            Command="{Binding ViewProjectsCommand}" />
+            </bar:BindableApplicationBar.MenuItems>
+        </bar:BindableApplicationBar>
+    </bar:Bindable.ApplicationBar>
+
 </helpers:PhonePageBase>

@@ -55,15 +55,21 @@ namespace Sluttprosjekt.ViewModel
         private decimal _amount;
         private Member _payer;
         private ObservableCollection<Member> _membersList;
+        private RelayCommand _cancelCommand;
 
         public RelayCommand SaveCommand
         {
             get { return _saveCommand ?? (_saveCommand = new RelayCommand(SaveTransaction)); }
         }
 
+        public RelayCommand CancelCommand
+        {
+            get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(() => _navigationService.GoBack())); }
+        }
+
         private void SaveTransaction()
         {
-
+            BindingHelper.UpdateSource();
             var transaction = new Transaction {Description = Description, Amount = Amount, PaidBy = Payer.Id, PaidDate = DateTime.Today};
             _dataService.SaveTransaction(transaction);
             //MessengerInstance.Send(new MemberAdded());
