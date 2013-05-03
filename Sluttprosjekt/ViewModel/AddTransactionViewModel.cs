@@ -20,6 +20,17 @@ namespace Sluttprosjekt.ViewModel
         {
             _navigationService = navigationService;
             _dataService = dataService;
+            UpdateMembersList();
+        }
+
+        private void UpdateMembersList()
+        {
+            var members = _dataService.GetMembers();
+            MembersList.Clear();
+            foreach (var member in members)
+            {
+                MembersList.Add(member);
+            }
         }
 
         public string Description
@@ -54,7 +65,7 @@ namespace Sluttprosjekt.ViewModel
         private string _description;
         private decimal _amount;
         private Member _payer;
-        private ObservableCollection<Member> _membersList;
+        private ObservableCollection<Member> _membersList = new ObservableCollection<Member>();
         private RelayCommand _cancelCommand;
 
         public RelayCommand SaveCommand
@@ -72,8 +83,13 @@ namespace Sluttprosjekt.ViewModel
             BindingHelper.UpdateSource();
             var transaction = new Transaction {Description = Description, Amount = Amount, PaidBy = Payer.Id, PaidDate = DateTime.Today};
             _dataService.SaveTransaction(transaction);
-            //MessengerInstance.Send(new MemberAdded());
+            MessengerInstance.Send(new TransactionAdded());
             _navigationService.GoBack();
         }
+    }
+
+    public class TransactionAdded
+    {
+        
     }
 }

@@ -50,8 +50,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="InMemoryDataContext.cs" />
-    <Compile Include="DataContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,11 @@ namespace Sluttprosjekt.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            SimpleIoc.Default.Register<IDataService>(() => new DataService());
+            if (ViewModelBase.IsInDesignModeStatic)
+                SimpleIoc.Default.Register<IDataService, DesignDataService>();
+            else
+                SimpleIoc.Default.Register<IDataService, DataService>();
+
             SimpleIoc.Default.Register<INavigationService>(() => new NavigationService());
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<ProjectsViewModel>();

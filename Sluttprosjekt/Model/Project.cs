@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Sluttprosjekt.Model
 {
     [Table(Name = "Projects")]
-    public class Project : IProject
+    public class Project
     {
         [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }
@@ -28,11 +28,5 @@ namespace Sluttprosjekt.Model
             get { return _members; }
             set { _members.Assign(value); }
         }
-    }
-
-    public interface IProject : IEntity
-    {
-        string Name { get; set; }
-        bool IsSelected { get; set; }
     }
 }

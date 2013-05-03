@@ -4,7 +4,7 @@ using System.Data.Linq.Mapping;
 namespace Sluttprosjekt.Model
 {
     [Table(Name = "Members")]
-    public class Member : IMember
+    public class Member
     {
         [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }
@@ -16,7 +16,6 @@ namespace Sluttprosjekt.Model
         public int ProjectId { get; set; }
 
         private EntityRef<Project> _project;
-
         [Association(IsForeignKey = true, ThisKey = "ProjectId", OtherKey = "Id", Storage = "_project")]
         public Project Project
         {

@@ -93,7 +93,7 @@ namespace Sluttprosjekt.ViewModel
 
         private RelayCommand _addProjectCommand;
         private RelayCommand _addMemberCommand;
-        
+
         public RelayCommand AddProjectsCommand
         {
             get

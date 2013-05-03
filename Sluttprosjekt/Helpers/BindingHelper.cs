@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Phone.Controls;
 
 namespace Sluttprosjekt.Helpers
 {
@@ -16,6 +17,17 @@ namespace Sluttprosjekt.Helpers
             var element = FocusManager.GetFocusedElement();
             if (element is TextBox)
                 UpdateTextboxBindingSource(element as TextBox);
+            if (element is ListPicker)
+                UpdateListPickerBindingSource(element as ListPicker);
+        }
+
+        private static void UpdateListPickerBindingSource(ListPicker element)
+        {
+            if (element == null) return;
+
+            var currentBinding = element.GetBindingExpression(ListPicker.SelectedItemProperty);
+            if (currentBinding != null)
+                currentBinding.UpdateSource();
         }
 
         private static void UpdateTextboxBindingSource(TextBox element)

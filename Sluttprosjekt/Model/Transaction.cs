@@ -5,7 +5,7 @@ using System.Data.Linq.Mapping;
 namespace Sluttprosjekt.Model
 {
     [Table(Name = "Transactions")]
-    public class Transaction : ITransaction
+    public class Transaction
     {
         [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }
