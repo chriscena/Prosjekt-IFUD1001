@@ -26,9 +26,9 @@ namespace Sluttprosjekt.ViewModel
                 _navigationService.Navigate("ProjectsPage");
         }
 
-        private Project _activeProject;
+        private IProject _activeProject;
 
-        public Project ActiveProject
+        public IProject ActiveProject
         {
             get { return _activeProject; }
             set

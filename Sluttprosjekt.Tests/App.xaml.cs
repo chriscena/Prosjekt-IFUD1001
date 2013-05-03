@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO.IsolatedStorage;
-using System.Linq;
 using System.Resources;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
-using GalaSoft.MvvmLight.Threading;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Reactive;
 using Microsoft.Phone.Shell;
-using Sluttprosjekt.Resources;
-using Sluttprosjekt.ViewModel;
+using Sluttprosjekt.Tests.Resources;
 
-namespace Sluttprosjekt
+namespace Sluttprosjekt.Tests
 {
     public partial class App : Application
     {
@@ -66,37 +61,25 @@ namespace Sluttprosjekt
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            //TODO Cleanup
-            //Deployment.Current.Dispatcher.BeginInvoke(() => _scheduler.StopPeriodic());
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            //TODO Cleanup
-            //Deployment.Current.Dispatcher.BeginInvoke(() => _scheduler.StopPeriodic());
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            //TODO Cleanup
-            //_scheduler.StartPeriodic();
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
-            ViewModelLocator.Cleanup();
-            //TODO Cleanup
-            //_scheduler.StartPeriodic();
         }
-
-        //TODO Cleanup
-        //private readonly Scheduler _scheduler;
 
         // Code to execute if a navigation fails
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
@@ -121,20 +104,18 @@ namespace Sluttprosjekt
         #region Phone application initialization
 
         // Avoid double-initialization
-        private bool _phoneApplicationInitialized = false;
+        private bool phoneApplicationInitialized = false;
 
         // Do not add any additional code to this method
         private void InitializePhoneApplication()
         {
-            if (_phoneApplicationInitialized)
+            if (phoneApplicationInitialized)
                 return;
 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
             RootFrame = new PhoneApplicationFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
-
-            DispatcherHelper.Initialize();
 
             // Handle navigation failures
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
@@ -143,7 +124,7 @@ namespace Sluttprosjekt
             RootFrame.Navigated += CheckForResetNavigation;
 
             // Ensure we don't initialize again
-            _phoneApplicationInitialized = true;
+            phoneApplicationInitialized = true;
         }
 
         // Do not add any additional code to this method

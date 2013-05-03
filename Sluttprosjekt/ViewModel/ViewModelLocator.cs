@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using Sluttprosjekt.Design;
 using Sluttprosjekt.Helpers;
 using Sluttprosjekt.Model;
 
@@ -18,6 +19,7 @@ namespace Sluttprosjekt.ViewModel
                 SimpleIoc.Default.Register<IDataService, DataService>();
 
             SimpleIoc.Default.Register<INavigationService>(() => new NavigationService());
+
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<ProjectsViewModel>();
             SimpleIoc.Default.Register<AddProjectViewModel>();

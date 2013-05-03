@@ -23,8 +23,8 @@ namespace Sluttprosjekt.ViewModel
             _navigationService = navigationService;
             _dataService = dataService;
 
-            ProjectsList = new ObservableCollection<Project>();
-            MembersList = new ObservableCollection<Member>();
+            ProjectsList = new ObservableCollection<IProject>();
+            MembersList = new ObservableCollection<IMember>();
 
             MessengerInstance.Register<ProjectAdded>(this, _ => UpdateProjectsListAfterAdd());
             MessengerInstance.Register<MemberAdded>(this, _ => UpdateMembersListAfterAdd());
@@ -79,13 +79,13 @@ namespace Sluttprosjekt.ViewModel
             }
         }
 
-        public ObservableCollection<Member> MembersList
+        public ObservableCollection<IMember> MembersList
         {
             get;
             private set;
         }
 
-        public ObservableCollection<Project> ProjectsList
+        public ObservableCollection<IProject> ProjectsList
         {
             get;
             private set;

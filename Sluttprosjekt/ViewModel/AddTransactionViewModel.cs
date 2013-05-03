@@ -55,7 +55,7 @@ namespace Sluttprosjekt.ViewModel
             set { _payer = value; RaisePropertyChanged(() => Payer); }
         }
 
-        public ObservableCollection<Member> MembersList
+        public ObservableCollection<IMember> MembersList
         {
             get { return _membersList; }
             set { _membersList = value; RaisePropertyChanged(() => MembersList); }
@@ -65,7 +65,7 @@ namespace Sluttprosjekt.ViewModel
         private string _description;
         private decimal _amount;
         private Member _payer;
-        private ObservableCollection<Member> _membersList = new ObservableCollection<Member>();
+        private ObservableCollection<IMember> _membersList = new ObservableCollection<IMember>();
         private RelayCommand _cancelCommand;
 
         public RelayCommand SaveCommand

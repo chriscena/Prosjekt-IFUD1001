@@ -5,10 +5,8 @@
                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                        xmlns:ignore="http://www.ignore.com"
-                       xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar" 
-                       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-                       xmlns:Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP8"
-                       xmlns:helpers="clr-namespace:Sluttprosjekt.Helpers" xmlns:Sluttprosjekt="clr-namespace:Sluttprosjekt"
+                       xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
+                       xmlns:helpers="clr-namespace:Sluttprosjekt.Helpers"
                        x:Class="Sluttprosjekt.MainPage"
                        mc:Ignorable="d ignore"
                        SupportedOrientations="Portrait"
@@ -24,10 +22,19 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="TransactionItem">
-            <StackPanel>
-                <TextBlock HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" Text="{Binding Description}" VerticalAlignment="Top"/>
-                <TextBlock HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" Text="{Binding Amount}" VerticalAlignment="Top"/>
-            </StackPanel>
+            <Grid Height="89" Margin="0,0,0,5">
+                <TextBlock HorizontalAlignment="Left" Margin="10,0,0,10" TextWrapping="Wrap" Text="{Binding Description}" FontSize="26.667" Height="31" VerticalAlignment="Bottom"/>
+                <TextBlock Margin="0,0,10,10" TextWrapping="Wrap" Text="{Binding Amount, StringFormat=N2}" FontSize="26.667" TextAlignment="Right" HorizontalAlignment="Right" Width="115" Height="31" VerticalAlignment="Bottom"/>
+                <TextBlock HorizontalAlignment="Left" Height="21" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding PaidByMember.Name}" VerticalAlignment="Top" Width="120" FontSize="18.667"/>
+                <TextBlock Height="21" Margin="0,10,10,0" TextWrapping="Wrap" Text="{Binding PaidDate.Date, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="115" FontSize="18.667" TextAlignment="Right"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="PaymentItem">
+            <Grid Height="89" Margin="0,0,0,5">
+                <TextBlock HorizontalAlignment="Left" Margin="10,0,0,10" TextWrapping="Wrap" Text="{Binding Payer.Name}" FontSize="26.667" Height="31" VerticalAlignment="Bottom"/>
+                <TextBlock Margin="0,0,10,10" TextWrapping="Wrap" Text="{Binding Amount, StringFormat=N2}" FontSize="26.667" TextAlignment="Right" HorizontalAlignment="Right" Width="115" Height="31" VerticalAlignment="Bottom"/>
+                <TextBlock HorizontalAlignment="Left" Height="21" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding Payee.Name}" VerticalAlignment="Top" Width="120" FontSize="18.667"/>
+            </Grid>
         </DataTemplate>
 
     </helpers:PhonePageBase.Resources>
@@ -43,6 +50,11 @@
                 <phone:LongListSelector ItemsSource="{Binding Main.TransactionsList, 
                  Source={StaticResource Locator}}" ItemTemplate="{StaticResource TransactionItem}"/>
             </phone:PivotItem>
+
+            <phone:PivotItem Header="dele">
+                <phone:LongListSelector ItemsSource="{Binding Main.PaymentsList, 
+                 Source={StaticResource Locator}}" ItemTemplate="{StaticResource PaymentItem}"/>
+            </phone:PivotItem>
         </phone:Pivot>
     </Grid>
 
@@ -56,7 +68,7 @@
                                             Text="ny person"
                                             Command="{Binding AddMemberCommand}" />
                 <bar:BindableApplicationBarMenuItem 
-                                            Text="vis spleiselag"
+                                            Text="velg spleiselag"
                                             Command="{Binding ViewProjectsCommand}" />
             </bar:BindableApplicationBar.MenuItems>
         </bar:BindableApplicationBar>

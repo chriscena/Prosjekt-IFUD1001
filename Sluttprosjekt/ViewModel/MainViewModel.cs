@@ -24,20 +24,32 @@ namespace Sluttprosjekt.ViewModel
             _navigationService = navigationService;
             _dataService = dataService;
 
-            MembersList = new ObservableCollection<Member>();
-            TransactionsList = new ObservableCollection<Transaction>();
+            MembersList = new ObservableCollection<IMember>();
+            TransactionsList = new ObservableCollection<ITransaction>();
+            PaymentsList = new ObservableCollection<Payment>();
 
             MessengerInstance.Register<MemberAdded>(this, _ => UpdateMembersListAfterAdd());
             MessengerInstance.Register<TransactionAdded>(this, _ => UpdateTransactionListAfterAdd());
 
             UpdateMembersList();
             UpdateTransactionsList();
+            UpdatePayments();
 #if DEBUG
             if (IsInDesignMode)
             {
                 //Refresh();
             }
 #endif
+        }
+
+        private void UpdatePayments()
+        {
+            var list = _dataService.GetPayments();
+            PaymentsList.Clear();
+            foreach (var payment in list)
+            {
+                PaymentsList.Add(payment);
+            }
         }
 
 
@@ -82,14 +94,17 @@ namespace Sluttprosjekt.ViewModel
             }
         }
 
-        public ObservableCollection<Member> MembersList { get;  private set;}
+        public ObservableCollection<IMember> MembersList { get;  private set;}
 
-        public ObservableCollection<Transaction> TransactionsList { get; private set; }
+        public ObservableCollection<ITransaction> TransactionsList { get; private set; }
+
+        public ObservableCollection<Payment> PaymentsList { get; private set; }
 
         private void UpdateTransactionListAfterAdd()
         {
             SimpleIoc.Default.Unregister<AddTransactionViewModel>();
             UpdateTransactionsList();
+            UpdatePayments();
             SimpleIoc.Default.Register<AddTransactionViewModel>();
         }
 
@@ -107,6 +122,7 @@ namespace Sluttprosjekt.ViewModel
         {
             SimpleIoc.Default.Unregister<AddMemberViewModel>();
             UpdateMembersList();
+            UpdatePayments();
             SimpleIoc.Default.Register<AddMemberViewModel>();
         }
 
