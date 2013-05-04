@@ -28,7 +28,7 @@ namespace Sluttprosjekt.ViewModel
             ProjectsList = new ObservableCollection<Project>();
             MembersList = new ObservableCollection<Member>();
 
-            MessengerInstance.Register<ProjectAdded>(this, _ => UpdateProjectsListAfterAdd());
+            MessengerInstance.Register<ProjectAdded>(this, _ => UpdateProjectsListProjectChange());
             MessengerInstance.Register<MemberAdded>(this, _ => UpdateMembersListAfterAdd());
 
             UpdateProjectsList();
@@ -67,7 +67,7 @@ namespace Sluttprosjekt.ViewModel
             SimpleIoc.Default.Register <AddMemberViewModel>();
         }
 
-        private void UpdateProjectsListAfterAdd()
+        private void UpdateProjectsListProjectChange()
         {
             UpdateProjectsList();
             UpdateMembersList();
@@ -134,27 +134,26 @@ namespace Sluttprosjekt.ViewModel
             get { return _createProjectCommand ?? (_createProjectCommand = new RelayCommand<RoutedEventArgs>(AddProjectOrMemberIfNeeded)); }
         }
         private RelayCommand<SelectionChangedEventArgs> _selectDeselectProjectCommand;
+        private Project _selectedProject;
 
-        public RelayCommand<SelectionChangedEventArgs> SelectProjectCommand
+        public Project SelectedProject
         {
-            get
+            get { return _selectedProject; }
+            set
             {
-                return _selectDeselectProjectCommand ??
-                       (_selectDeselectProjectCommand = new RelayCommand<SelectionChangedEventArgs>(SelectProject));
+                _selectedProject = value;
+                RaisePropertyChanged(() => SelectedProject);
+
+                if (SelectedProject == null) return;
+                _dataService.SetActiveProject(SelectedProject);
+                UpdateProjectsListProjectChange();
+                MessengerInstance.Send(new ActiveProjectChanged { ActiveProject = SelectedProject });
             }
-        }
-
-        private void SelectProject(SelectionChangedEventArgs args)
-        {
-            //var project = args.AddedItems[0] as Project;
-            //if (project == null) return;
-
-            //_dataService.SetActiveProject(project);
-            //MessengerInstance.Send(new ProjectAdded());
         }
     }
 
     public class ProjectAdded
     {
+
     }
 }

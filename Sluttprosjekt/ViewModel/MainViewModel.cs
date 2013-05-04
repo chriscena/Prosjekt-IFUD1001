@@ -25,6 +25,7 @@ namespace Sluttprosjekt.ViewModel
             TransactionsList = new ObservableCollection<Transaction>();
             PaymentsList = new ObservableCollection<Payment>();
 
+            MessengerInstance.Register<ActiveProjectChanged>(this, _ => UpdateListsAfterAdd());
             MessengerInstance.Register<MemberAdded>(this, _ => UpdateListsAfterAdd());
             MessengerInstance.Register<TransactionAdded>(this, _ => UpdateListsAfterAdd());
 

@@ -9,6 +9,8 @@
     xmlns:helpers="clr-namespace:Sluttprosjekt.Helpers"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar"
+    xmlns:controls="clr-namespace:Sluttprosjekt.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -39,13 +41,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding Source={StaticResource Locator}}">
         <phone:Pivot Title="{Binding ActiveProjectViewModel.ActiveProjectTitle, Mode=OneWay}">
             <phone:PivotItem Header="lag">
-                <phone:LongListSelector DataContext="{Binding ProjectsViewModel, Source={StaticResource Locator}}" ItemsSource="{Binding ProjectsList}" ItemTemplate="{StaticResource ProjectItem}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding SelectProjectCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </phone:LongListSelector>
+                <controls:LongListSelector DataContext="{Binding ProjectsViewModel, Source={StaticResource Locator}}" ItemsSource="{Binding ProjectsList}" ItemTemplate="{StaticResource ProjectItem}" SelectedItem="{Binding SelectedProject, Mode=TwoWay}" toolkit:TiltEffect.IsTiltEnabled="True" />
             </phone:PivotItem>
 
             <phone:PivotItem Header="folk">
