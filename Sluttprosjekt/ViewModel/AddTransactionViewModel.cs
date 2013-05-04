@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Practices.ServiceLocation;
 using Sluttprosjekt.Helpers;
 using Sluttprosjekt.Model;
 
@@ -31,6 +32,8 @@ namespace Sluttprosjekt.ViewModel
             {
                 MembersList.Add(member);
             }
+            if (MembersList.Count > 0)
+                Payer = MembersList.First();
         }
 
         public string Description
@@ -46,16 +49,24 @@ namespace Sluttprosjekt.ViewModel
         public decimal Amount
         {
             get { return _amount; }
-            set { _amount = value; RaisePropertyChanged(() => Amount); }
+            set
+            {
+                _amount = value;
+                RaisePropertyChanged(() => Amount);
+            }
         }
 
         public Member Payer
         {
             get { return _payer; }
-            set { _payer = value; RaisePropertyChanged(() => Payer); }
+            set
+            {
+                _payer = value;
+                RaisePropertyChanged(() => Payer);
+            }
         }
 
-        public ObservableCollection<IMember> MembersList
+        public ObservableCollection<Member> MembersList
         {
             get { return _membersList; }
             set { _membersList = value; RaisePropertyChanged(() => MembersList); }
@@ -65,7 +76,7 @@ namespace Sluttprosjekt.ViewModel
         private string _description;
         private decimal _amount;
         private Member _payer;
-        private ObservableCollection<IMember> _membersList = new ObservableCollection<IMember>();
+        private ObservableCollection<Member> _membersList = new ObservableCollection<Member>();
         private RelayCommand _cancelCommand;
 
         public RelayCommand SaveCommand
@@ -78,9 +89,30 @@ namespace Sluttprosjekt.ViewModel
             get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(() => _navigationService.GoBack())); }
         }
 
+        public IDialogService DialogService
+        {
+            get { return ServiceLocator.Current.GetInstance<IDialogService>(); }
+        }
+
+
         private void SaveTransaction()
         {
             BindingHelper.UpdateSource();
+            if (string.IsNullOrWhiteSpace(Description))
+            {
+                DialogService.ShowError("Du må fylle inn en beskrivelse.", "Mangler beskrivelse", "OK", null);
+                return;
+            }
+            if (Payer == null)
+            {
+                DialogService.ShowError("Du må velge en betaler.", "Mangler betaler", "OK", null);
+                return;
+            }
+            if (Amount <= 0)
+            {
+                DialogService.ShowError("Du må fylle inn et gyldig beløp.", "Mangler beløp", "OK", null);
+                return;
+            }
             var transaction = new Transaction {Description = Description, Amount = Amount, PaidBy = Payer.Id, PaidDate = DateTime.Today};
             _dataService.SaveTransaction(transaction);
             MessengerInstance.Send(new TransactionAdded());

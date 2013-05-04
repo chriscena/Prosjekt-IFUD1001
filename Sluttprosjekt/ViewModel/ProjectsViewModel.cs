@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -23,8 +25,8 @@ namespace Sluttprosjekt.ViewModel
             _navigationService = navigationService;
             _dataService = dataService;
 
-            ProjectsList = new ObservableCollection<IProject>();
-            MembersList = new ObservableCollection<IMember>();
+            ProjectsList = new ObservableCollection<Project>();
+            MembersList = new ObservableCollection<Member>();
 
             MessengerInstance.Register<ProjectAdded>(this, _ => UpdateProjectsListAfterAdd());
             MessengerInstance.Register<MemberAdded>(this, _ => UpdateMembersListAfterAdd());
@@ -39,23 +41,37 @@ namespace Sluttprosjekt.ViewModel
 #endif
         }
 
-        public void AddProjectIfNeeded()
+        public IDialogService DialogService
         {
-            if (ProjectsList.Count == 0)
+            get { return ServiceLocator.Current.GetInstance<IDialogService>(); }
+        }
+
+        public void AddProjectOrMemberIfNeeded(RoutedEventArgs routedEventArgs)
+        {
+            if (!ProjectsList.Any())
+            {
+                DialogService.ShowMessage(
+                    "Det ser ut som at dette er første gang du kjører Spleiselag. Du må derfor opprette et spleiselag og minst ett medlem av laget.",
+                    "Opprette spleiselag", "Fortsett", null);
                 _navigationService.Navigate("AddProjectPage");
+            }
+
+            if (!MembersList.Any())
+                _navigationService.Navigate("AddMemberPage");
         }
 
         private void UpdateMembersListAfterAdd()
         {
-            SimpleIoc.Default.Unregister<AddMemberViewModel>();
             UpdateMembersList();
+            SimpleIoc.Default.Unregister<AddMemberViewModel>();
             SimpleIoc.Default.Register <AddMemberViewModel>();
         }
 
         private void UpdateProjectsListAfterAdd()
         {
-            SimpleIoc.Default.Unregister<AddProjectViewModel>();
             UpdateProjectsList();
+            UpdateMembersList();
+            SimpleIoc.Default.Unregister<AddProjectViewModel>();
             SimpleIoc.Default.Register<AddProjectViewModel>();
         }
 
@@ -79,13 +95,13 @@ namespace Sluttprosjekt.ViewModel
             }
         }
 
-        public ObservableCollection<IMember> MembersList
+        public ObservableCollection<Member> MembersList
         {
             get;
             private set;
         }
 
-        public ObservableCollection<IProject> ProjectsList
+        public ObservableCollection<Project> ProjectsList
         {
             get;
             private set;
@@ -93,6 +109,7 @@ namespace Sluttprosjekt.ViewModel
 
         private RelayCommand _addProjectCommand;
         private RelayCommand _addMemberCommand;
+        private RelayCommand<RoutedEventArgs> _createProjectCommand;
 
         public RelayCommand AddProjectsCommand
         {
@@ -110,6 +127,30 @@ namespace Sluttprosjekt.ViewModel
                 return _addMemberCommand ??
                        (_addMemberCommand = new RelayCommand(() => _navigationService.Navigate("AddMemberPage")));
             }
+        }
+
+        public RelayCommand<RoutedEventArgs> CreateProjectCommand
+        {
+            get { return _createProjectCommand ?? (_createProjectCommand = new RelayCommand<RoutedEventArgs>(AddProjectOrMemberIfNeeded)); }
+        }
+        private RelayCommand<SelectionChangedEventArgs> _selectDeselectProjectCommand;
+
+        public RelayCommand<SelectionChangedEventArgs> SelectProjectCommand
+        {
+            get
+            {
+                return _selectDeselectProjectCommand ??
+                       (_selectDeselectProjectCommand = new RelayCommand<SelectionChangedEventArgs>(SelectProject));
+            }
+        }
+
+        private void SelectProject(SelectionChangedEventArgs args)
+        {
+            //var project = args.AddedItems[0] as Project;
+            //if (project == null) return;
+
+            //_dataService.SetActiveProject(project);
+            //MessengerInstance.Send(new ProjectAdded());
         }
     }
 

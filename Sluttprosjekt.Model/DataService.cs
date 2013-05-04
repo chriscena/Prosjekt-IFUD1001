@@ -4,6 +4,9 @@ using GalaSoft.MvvmLight.Ioc;
 
 namespace Sluttprosjekt.Model
 {
+    /// <summary>
+    /// DataService implementation using <seealso cref="LinqToSqlContext"/>.
+    /// </summary>
     public class DataService : IDataService
     {
         private readonly IDataContext _dbContext;
@@ -13,8 +16,8 @@ namespace Sluttprosjekt.Model
         public DataService()
         {
             var dataContext = new SpleiselagDataContext("isostore:/SpleiseDB.sdf");
-            if (dataContext.DatabaseExists())
-                dataContext.DeleteDatabase();
+            //if (dataContext.DatabaseExists())
+            //    dataContext.DeleteDatabase();
             if (!dataContext.DatabaseExists())
                 dataContext.CreateDatabase();
             _dbContext = new LinqToSqlContext(dataContext);
@@ -99,5 +102,30 @@ namespace Sluttprosjekt.Model
             if (activeProject == null) return new List<Member>();
             return _dbContext.Repository<Member>().Where(m => m.ProjectId == activeProject.Id).ToList();
         }
+
+        public List<MemberWithTotalDueAmount> GetMembersWithTotalDueAmount()
+        {
+            var members = GetMembers();
+            return members.Select(Map).ToList();
+        }
+
+        private MemberWithTotalDueAmount Map(Member member)
+        {
+            return member == null
+                       ? null
+                       : new MemberWithTotalDueAmount
+                           {
+                               Id = member.Id,
+                               Name = member.Name,
+                               Project = member.Project,
+                               ProjectId = member.ProjectId,
+                               TotalDueAmount = _calculator.GetTotalDuePaymentForMember(member.Id)
+                           };
+        } 
+    }
+
+    public class MemberWithTotalDueAmount : Member
+    {
+        public decimal TotalDueAmount { get; set; }
     }
 }

@@ -4,22 +4,11 @@ using System.Data.Linq.Mapping;
 
 namespace Sluttprosjekt.Model
 {
-    public interface IEntity
-    {
-        int Id { get; set; }
-    }
-
-    public interface ITransaction : IEntity
-    {
-        int PaidBy { get; set; }
-        DateTime PaidDate { get; set; }
-        string Description { get; set; }
-        decimal Amount { get; set; }
-        Member PaidByMember { get; set; }
-    }
-
+    /// <summary>
+    /// Transaction entity
+    /// </summary>
     [Table(Name = "Transactions")]
-    public class Transaction : ITransaction
+    public class Transaction 
     {
         [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }

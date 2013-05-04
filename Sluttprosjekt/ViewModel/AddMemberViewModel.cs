@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Practices.ServiceLocation;
 using Sluttprosjekt.Helpers;
 using Sluttprosjekt.Model;
 
@@ -15,7 +16,7 @@ namespace Sluttprosjekt.ViewModel
         private readonly INavigationService _navigationService;
         private readonly IDataService _dataService;
 
-        public AddMemberViewModel(INavigationService navigationService, IDataService dataService)
+        public AddMemberViewModel(INavigationService navigationService, IDataService dataService )
         {
             _navigationService = navigationService;
             _dataService = dataService;
@@ -38,9 +39,19 @@ namespace Sluttprosjekt.ViewModel
             get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(() => _navigationService.GoBack())); }
         }
 
+        public IDialogService DialogService
+        {
+            get { return ServiceLocator.Current.GetInstance<IDialogService>(); }
+        }
+
         private void SaveMember()
         {
             BindingHelper.UpdateSource();
+            if (string.IsNullOrWhiteSpace(MemberName))
+            {
+                DialogService.ShowError("Du må fylle inn et navn for å lagre personen", "Mangler navn", "OK", null);
+                return;
+            }
             var member = new Member { Name = MemberName };
             _dataService.SaveMember(member);
             MessengerInstance.Send(new MemberAdded());

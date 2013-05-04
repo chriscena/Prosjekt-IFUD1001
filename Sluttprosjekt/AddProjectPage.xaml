@@ -30,8 +30,8 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock HorizontalAlignment="Left" Margin="10,43,0,0" TextWrapping="Wrap" Text="navn" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding ProjectName, Mode=TwoWay}" HorizontalAlignment="Left" Height="72" Margin="0,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Default"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="navn" VerticalAlignment="Top" RenderTransformOrigin="0.414,-0.456"/>
+            <TextBox Text="{Binding ProjectName, Mode=TwoWay}" HorizontalAlignment="Left" Height="72" Margin="0,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="PersonalFullName"/>
 
         </Grid>
     </Grid>

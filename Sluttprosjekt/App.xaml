@@ -13,9 +13,8 @@
     <Application.Resources>
         <local:LocalizedStrings x:Key="LocalizedStrings" />
         <helpers:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-
-        <vm:ViewModelLocator x:Key="Locator"
-                             d:IsDataSource="true" />
+        <helpers:DecimalToColorConverter x:Key="DecimalToColorConverter" />
+        <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="true" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

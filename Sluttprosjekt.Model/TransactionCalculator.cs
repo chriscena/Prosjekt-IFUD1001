@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sluttprosjekt.Model
 {
+    /// <summary>
+    /// Performs calculations for amounts and due payments.
+    /// </summary>
     public class TransactionCalculator
     {
         private readonly IDataService _dataService;
+        /// <summary>
+        /// Performs calculations for amounts and due payments.
+        /// </summary>
+        /// <param name="dataService"></param>
         public TransactionCalculator(IDataService dataService)
         {
             _dataService = dataService;
@@ -31,6 +36,11 @@ namespace Sluttprosjekt.Model
             return GeneratePayments(duePayments);
         }
 
+        /// <summary>
+        /// Simple greedy strategy, taking the most owed with largest payable.
+        /// </summary>
+        /// <param name="duePayments"></param>
+        /// <returns></returns>
         private List<Payment> GeneratePayments(IEnumerable<DueMemberPayment> duePayments)
         {
             var orderedDuePayments = duePayments.ToList().OrderBy(p => p.TotalAmount);
@@ -39,11 +49,12 @@ namespace Sluttprosjekt.Model
             {
                 var min = orderedDuePayments.First();
                 var max = orderedDuePayments.Last();
-                var payment = new Payment {Payer = max.Member, Payee = min.Member};
-                if (Math.Abs(min.TotalAmount) > max.TotalAmount)
-                    payment.Amount = max.TotalAmount;
-                else
-                    payment.Amount = Math.Abs(min.TotalAmount);
+                var payment = new Payment
+                    {
+                        Payer = max.Member,
+                        Payee = min.Member,
+                        Amount = Math.Abs(min.TotalAmount) > max.TotalAmount ? max.TotalAmount : Math.Abs(min.TotalAmount)
+                    };
                 min.TotalAmount += payment.Amount;
                 max.TotalAmount -= payment.Amount;
                 payments.Add(payment);
@@ -51,18 +62,5 @@ namespace Sluttprosjekt.Model
             }
             return payments;
         }
-    }
-
-    public class DueMemberPayment 
-    {
-        public IMember Member { get; set; }
-        public decimal TotalAmount { get; set; }
-    }
-
-    public class Payment
-    {
-        public IMember Payer { get; set; }
-        public IMember Payee { get; set; }
-        public decimal Amount { get; set; }
     }
 }

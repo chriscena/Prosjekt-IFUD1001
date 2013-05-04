@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Sluttprosjekt.Model
 {
+    /// <summary>
+    /// Implementation of IDataContext using Linq2SQL.
+    /// </summary>
     public class LinqToSqlContext : IDataContext
     {
 
@@ -16,11 +19,8 @@ namespace Sluttprosjekt.Model
         {
             _context = context;
 
-            TableMaps.Add(typeof(IProject), typeof(Project));
             TableMaps.Add(typeof(Project), typeof(Project));
-            TableMaps.Add(typeof(IMember), typeof(Member));
             TableMaps.Add(typeof(Member), typeof(Member));
-            TableMaps.Add(typeof(ITransaction), typeof(Transaction));
             TableMaps.Add(typeof(Transaction), typeof(Transaction));
         }
 

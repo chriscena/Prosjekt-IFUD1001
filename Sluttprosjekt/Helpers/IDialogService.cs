@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Friends.Lib.Helpers
+namespace Sluttprosjekt.Helpers
 {
     public interface IDialogService
     {

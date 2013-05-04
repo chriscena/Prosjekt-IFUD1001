@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Practices.ServiceLocation;
 using Sluttprosjekt.Helpers;
 using Sluttprosjekt.Model;
 
@@ -42,16 +43,25 @@ namespace Sluttprosjekt.ViewModel
             get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(() => _navigationService.GoBack())); }
         }
 
+        public IDialogService DialogService
+        {
+            get { return ServiceLocator.Current.GetInstance<IDialogService>(); }
+        }
+
         private void SaveProject()
         {
             BindingHelper.UpdateSource();
+            if (string.IsNullOrWhiteSpace(ProjectName))
+            {
+                DialogService.ShowError("Du må fylle inn et navn for å lagre spleiselaget.", "Mangler navn", "OK", null);
+                return;
+            }
+
             var project = new Project { Name = ProjectName };
             _dataService.SaveProject(project);
             MessengerInstance.Send(new ActiveProjectChanged { ActiveProject = project });
             MessengerInstance.Send(new ProjectAdded());
             _navigationService.GoBack();
         }
-
-        
     }
 }

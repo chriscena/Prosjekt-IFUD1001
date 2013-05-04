@@ -8,15 +8,11 @@ using System.Threading.Tasks;
 
 namespace Sluttprosjekt.Model
 {
-    public interface IProject : IEntity
-    {
-        string Name { get; set; }
-        bool IsSelected { get; set; }
-        ICollection<Member> Members { get; set; }
-    }
-
+    /// <summary>
+    /// Project entity
+    /// </summary>
     [Table(Name = "Projects")]
-    public class Project : IProject
+    public class Project
     {
         [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }

@@ -17,32 +17,6 @@ namespace Sluttprosjekt
         public ProjectsPage()
         {
             InitializeComponent();
-        }        
-        
-        /// <summary>
-        /// Gets the view's ViewModel.
-        /// </summary>
-        public ProjectsViewModel ViewModel
-        {
-            get
-            {
-                return (ProjectsViewModel)DataContext;
-            }
-        }
-
-        private void AddPersonClick(object sender, EventArgs e)
-        {
-            ViewModel.AddMemberCommand.Execute(null);
-        }
-
-        private void AddProjectClick(object sender, EventArgs e)
-        {
-            ViewModel.AddProjectsCommand.Execute(null);
-        }
-
-        private void PhonePageBase_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.AddProjectIfNeeded();
         }
     }
 }

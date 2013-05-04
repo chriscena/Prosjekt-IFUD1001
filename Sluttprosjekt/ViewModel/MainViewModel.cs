@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Friends.Lib.Helpers;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -10,9 +9,7 @@ using Sluttprosjekt.Model;
 namespace Sluttprosjekt.ViewModel
 {
     /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// </para>
+    /// View model for the main page.
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
@@ -24,12 +21,12 @@ namespace Sluttprosjekt.ViewModel
             _navigationService = navigationService;
             _dataService = dataService;
 
-            MembersList = new ObservableCollection<IMember>();
-            TransactionsList = new ObservableCollection<ITransaction>();
+            MembersList = new ObservableCollection<MemberWithTotalDueAmount>();
+            TransactionsList = new ObservableCollection<Transaction>();
             PaymentsList = new ObservableCollection<Payment>();
 
-            MessengerInstance.Register<MemberAdded>(this, _ => UpdateMembersListAfterAdd());
-            MessengerInstance.Register<TransactionAdded>(this, _ => UpdateTransactionListAfterAdd());
+            MessengerInstance.Register<MemberAdded>(this, _ => UpdateListsAfterAdd());
+            MessengerInstance.Register<TransactionAdded>(this, _ => UpdateListsAfterAdd());
 
             UpdateMembersList();
             UpdateTransactionsList();
@@ -88,24 +85,25 @@ namespace Sluttprosjekt.ViewModel
 
         public IDialogService DialogService
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<IDialogService>();
-            }
+            get { return ServiceLocator.Current.GetInstance<IDialogService>(); }
         }
 
-        public ObservableCollection<IMember> MembersList { get;  private set;}
+        public ObservableCollection<MemberWithTotalDueAmount> MembersList { get; private set; }
 
-        public ObservableCollection<ITransaction> TransactionsList { get; private set; }
+        public ObservableCollection<Transaction> TransactionsList { get; private set; }
 
         public ObservableCollection<Payment> PaymentsList { get; private set; }
 
-        private void UpdateTransactionListAfterAdd()
+        private void UpdateListsAfterAdd()
         {
-            SimpleIoc.Default.Unregister<AddTransactionViewModel>();
             UpdateTransactionsList();
             UpdatePayments();
+            UpdateMembersList();
+
+            SimpleIoc.Default.Unregister<AddTransactionViewModel>();
             SimpleIoc.Default.Register<AddTransactionViewModel>();
+            SimpleIoc.Default.Unregister<AddMemberViewModel>();
+            SimpleIoc.Default.Register<AddMemberViewModel>();
         }
 
         private void UpdateTransactionsList()
@@ -118,17 +116,9 @@ namespace Sluttprosjekt.ViewModel
             }
         }
 
-        private void UpdateMembersListAfterAdd()
-        {
-            SimpleIoc.Default.Unregister<AddMemberViewModel>();
-            UpdateMembersList();
-            UpdatePayments();
-            SimpleIoc.Default.Register<AddMemberViewModel>();
-        }
-
         private void UpdateMembersList()
         {
-            var list = _dataService.GetMembers();
+            var list = _dataService.GetMembersWithTotalDueAmount();
             MembersList.Clear();
             foreach (var member in list)
             {

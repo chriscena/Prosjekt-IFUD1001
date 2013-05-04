@@ -4,16 +4,11 @@ using System.Data.Linq.Mapping;
 
 namespace Sluttprosjekt.Model
 {
-    public interface IMember : IEntity
-    {
-        string Name { get; set; }
-        int ProjectId { get; set; }
-        Project Project { get; set; }
-        ICollection<Transaction> Transactions { get; set; }
-    }
-
+    /// <summary>
+    /// Member entity
+    /// </summary>
     [Table(Name = "Members")]
-    public class Member : IMember
+    public class Member
     {
         [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }

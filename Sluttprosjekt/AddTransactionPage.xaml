@@ -46,18 +46,17 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="{Binding ActiveProjectViewModel.ActiveProjectTitle, Mode=OneWay}" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding ActiveProjectViewModel.ActiveProjectTitle}" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock Text="ny betaling" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-
-            <toolkit:ListPicker ItemsSource="{Binding MembersList}" ItemTemplate="{StaticResource MemberItem}" HorizontalAlignment="Left" Margin="22,136,0,0" VerticalAlignment="Top" SelectedItem="{Binding Payer, Mode=TwoWay}"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,109,0,0" TextWrapping="Wrap" Text="betaler" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="beskrivelse" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,217,0,0" TextWrapping="Wrap" Text="beløp" VerticalAlignment="Top"/>
             <TextBox HorizontalAlignment="Left" Height="72" Margin="10,37,-10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Text" Text="{Binding Description, Mode=TwoWay}"/>
+            <toolkit:ListPicker ItemsSource="{Binding MembersList}" ItemTemplate="{StaticResource MemberItem}" HorizontalAlignment="Left" Margin="22,136,0,0" VerticalAlignment="Top" SelectedItem="{Binding Payer, Mode=TwoWay}" Canvas.ZIndex="100"/>
             <TextBox HorizontalAlignment="Left" Height="72" Margin="10,244,-10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Number" Text="{Binding Amount, Mode=TwoWay}"/>
 
         </Grid>

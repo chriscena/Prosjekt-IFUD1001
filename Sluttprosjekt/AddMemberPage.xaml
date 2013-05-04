@@ -31,8 +31,8 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock HorizontalAlignment="Left" Margin="10,28,0,0" TextWrapping="Wrap" Text="navn" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="72" Margin="0,55,0,0" TextWrapping="Wrap" Text="{Binding AddMember.MemberName, Mode=TwoWay}" VerticalAlignment="Top" Width="456" InputScope="PersonalFullName"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="navn" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Height="72" Margin="0,37,0,0" TextWrapping="Wrap" Text="{Binding AddMember.MemberName, Mode=TwoWay}" VerticalAlignment="Top" Width="456" InputScope="PersonalFullName"/>
 
         </Grid>
     </Grid>

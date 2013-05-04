@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
-using Friends.Lib.Helpers;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Phone.Controls;
 
@@ -79,7 +78,7 @@ namespace Sluttprosjekt.Helpers
 
         public virtual async Task ShowMessage(string message, string title)
         {
-            ShowMessage(message, title ?? string.Empty, null, null);
+            await ShowMessage(message, title ?? string.Empty, null, null);
         }
 
         public virtual async Task ShowMessage(string message, string title, int timeoutSeconds)
@@ -96,7 +95,7 @@ namespace Sluttprosjekt.Helpers
 #if DEBUG
             else
             {
-                ShowMessage(message, title);
+                await ShowMessage(message, title);
             }
 #else
             throw new InvalidOperationException("Cannnot find Dialog control");

@@ -119,5 +119,33 @@ namespace Sluttprosjekt.Design
 
                 };
         }
+
+        public List<MemberWithTotalDueAmount> GetMembersWithTotalDueAmount()
+        {
+            return new List<MemberWithTotalDueAmount>
+                {
+                    new MemberWithTotalDueAmount
+                        {
+                            Id = 1,
+                            Name = "Testperson1",
+                            ProjectId = 1,
+                            TotalDueAmount = -123.00m
+                        },
+                    new MemberWithTotalDueAmount
+                        {
+                            Id = 2,
+                            Name = "Testperson2",
+                            ProjectId = 1,
+                            TotalDueAmount = 100.00m
+                        },
+                    new MemberWithTotalDueAmount
+                        {
+                            Id = 3,
+                            Name = "Testperson3",
+                            ProjectId = 1,
+                            TotalDueAmount = 23.00m
+                        }
+                };
+        }
     }
 }
