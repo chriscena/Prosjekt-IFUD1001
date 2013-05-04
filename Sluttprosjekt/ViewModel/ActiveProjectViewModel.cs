@@ -44,7 +44,7 @@ namespace Sluttprosjekt.ViewModel
             get
             {
                 if (ActiveProject == null) return Title.ToUpper();
-                return string.Format("{0} - {1}", Title.ToUpper(), ActiveProject.Name.ToUpper());
+                return string.Format("{0} - {1}", ActiveProject.Name.ToUpper(), Title.ToUpper());
             }
         }
 
