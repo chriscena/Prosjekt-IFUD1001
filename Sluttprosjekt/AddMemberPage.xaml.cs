@@ -18,18 +18,5 @@ namespace Sluttprosjekt
         {
             InitializeComponent();
         }
-
-        public AddMemberViewModel ViewModel { get { return (AddMemberViewModel) DataContext; } }
-
-        private void SaveClick(object sender, EventArgs e)
-        {
-            BindingHelper.UpdateSource();
-            ViewModel.SaveCommand.Execute(null);
-        }
-
-        private void CancelClick(object sender, EventArgs e)
-        {
-            NavigationService.GoBack();
-        }
     }
 }

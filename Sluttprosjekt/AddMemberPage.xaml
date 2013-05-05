@@ -17,7 +17,10 @@
     DataContext="{Binding AddMember, Source={StaticResource Locator}}">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding Source={StaticResource Locator}}">
+    <Grid x:Name="LayoutRoot">
+    	<Grid.Background>
+    		<SolidColorBrush Color="{StaticResource HighlightBackground}"/>
+    	</Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -25,14 +28,17 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="{Binding ActiveProjectViewModel.ActiveProjectTitle, Mode=OneWay}" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding ActiveProjectViewModel.ActiveProjectTitle, Source={StaticResource Locator}, Mode=OneWay}" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock Text="ny person" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="navn" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="72" Margin="0,37,0,0" TextWrapping="Wrap" Text="{Binding AddMember.MemberName, Mode=TwoWay}" VerticalAlignment="Top" Width="456" InputScope="PersonalFullName"/>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0">
+        	<Grid.Background>
+        		<SolidColorBrush Color="{StaticResource DefaultBackground}"/>
+        	</Grid.Background>
+            <TextBlock HorizontalAlignment="Left" Margin="20,10,0,0" TextWrapping="Wrap" Text="navn" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Height="72" Margin="20,37,10,0" TextWrapping="Wrap" Text="{Binding AddMember.MemberName, Mode=TwoWay}" VerticalAlignment="Top" Width="456" InputScope="PersonalFullName"/>
 
         </Grid>
     </Grid>

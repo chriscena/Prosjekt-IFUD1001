@@ -38,7 +38,10 @@
 
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot">
+    	<Grid.Background>
+    		<SolidColorBrush Color="{StaticResource HighlightBackground}"/>
+    	</Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -51,13 +54,16 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock HorizontalAlignment="Left" Margin="10,109,0,0" TextWrapping="Wrap" Text="betaler" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="beskrivelse" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Margin="10,217,0,0" TextWrapping="Wrap" Text="beløp" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="72" Margin="10,37,-10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Text" Text="{Binding Description, Mode=TwoWay}"/>
-            <toolkit:ListPicker ItemsSource="{Binding MembersList}" ItemTemplate="{StaticResource MemberItem}" HorizontalAlignment="Left" Margin="22,136,0,0" VerticalAlignment="Top" SelectedItem="{Binding Payer, Mode=TwoWay}" Canvas.ZIndex="100"/>
-            <TextBox HorizontalAlignment="Left" Height="72" Margin="10,244,-10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Number" Text="{Binding Amount, Mode=TwoWay}"/>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0">
+        	<Grid.Background>
+        		<SolidColorBrush Color="{StaticResource DefaultBackground}"/>
+        	</Grid.Background>
+            <TextBlock HorizontalAlignment="Left" Margin="20,109,0,0" TextWrapping="Wrap" Text="betaler" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="20,10,0,0" TextWrapping="Wrap" Text="beskrivelse" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="20,217,0,0" TextWrapping="Wrap" Text="beløp" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Height="72" Margin="20,37,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Text" Text="{Binding Description, Mode=TwoWay}"/>
+            <toolkit:ListPicker ItemsSource="{Binding MembersList}" ItemTemplate="{StaticResource MemberItem}" HorizontalAlignment="Left" Margin="29,136,0,0" VerticalAlignment="Top" SelectedItem="{Binding Payer, Mode=TwoWay}" Canvas.ZIndex="100"/>
+            <TextBox HorizontalAlignment="Left" Height="72" Margin="20,244,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Number" Text="{Binding Amount, Mode=TwoWay}"/>
 
         </Grid>
     </Grid>

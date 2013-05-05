@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
-  <DefaultLanguage xmlns="" code="en-US" />
+  <DefaultLanguage xmlns="" code="no" />
   <Languages xmlns="">
     <Language code="no" />
     <Language code="nb" />
     <Language code="nn" />
     <Language code="nb-NO" />
     <Language code="nn-NO" />
+    <Language code="en-US" />
   </Languages>
-  <App xmlns="" ProductID="{79ed4a98-efcb-45a2-aec2-513b3c076e62}" Title="Sluttprosjekt" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Sluttprosjekt author" Description="Sample description" Publisher="Sluttprosjekt" PublisherID="{2bf90fc1-6735-4cde-a047-b99c3e0e6cdf}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+  <App xmlns="" ProductID="{79ed4a98-efcb-45a2-aec2-513b3c076e62}" Title="Spleiselag" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Christoffer Cena" Description="Sample description" Publisher="Christoffer Cena" PublisherID="{2bf90fc1-6735-4cde-a047-b99c3e0e6cdf}">
+    <IconPath IsRelative="true" IsResource="false">Assets\Tiles\Cash-128.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -31,18 +32,26 @@
     <Tokens>
       <PrimaryToken TokenID="SluttprosjektToken" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\Cash-128.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>Friends!</Title>
-          <BackContent></BackContent>
-          <BackBackgroundImageURI></BackBackgroundImageURI>
-          <BackTitle></BackTitle>
-          <LargeBackgroundImageURI></LargeBackgroundImageURI>
-          <LargeBackContent></LargeBackContent>
-          <LargeBackBackgroundImageURI></LargeBackBackgroundImageURI>
-          <DeviceLockImageURI></DeviceLockImageURI>
-          <HasLarge></HasLarge>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\Cash-256.png</BackgroundImageURI>
+          <Title>Spleiselag</Title>
+          <BackContent>
+          </BackContent>
+          <BackBackgroundImageURI>
+          </BackBackgroundImageURI>
+          <BackTitle>
+          </BackTitle>
+          <LargeBackgroundImageURI>
+          </LargeBackgroundImageURI>
+          <LargeBackContent>
+          </LargeBackContent>
+          <LargeBackBackgroundImageURI>
+          </LargeBackBackgroundImageURI>
+          <DeviceLockImageURI>
+          </DeviceLockImageURI>
+          <HasLarge>
+          </HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>

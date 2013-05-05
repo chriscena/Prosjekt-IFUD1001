@@ -22,7 +22,15 @@ namespace Sluttprosjekt.Helpers
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            SimpleIoc.Default.Register<IDialogService>(() => this);
+            try
+            {
+                SimpleIoc.Default.Register<IDialogService>(() => this);
+            }
+            catch (InvalidOperationException)
+            {
+                SimpleIoc.Default.Unregister<IDialogService>();
+                SimpleIoc.Default.Register<IDialogService>(() => this);
+            }
             base.OnNavigatedTo(e);
         }
 

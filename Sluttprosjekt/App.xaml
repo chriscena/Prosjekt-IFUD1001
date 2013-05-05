@@ -11,10 +11,16 @@
 
     <!--Application Resources-->
     <Application.Resources>
-        <local:LocalizedStrings x:Key="LocalizedStrings" />
-        <helpers:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <helpers:DecimalToColorConverter x:Key="DecimalToColorConverter" />
-        <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="true" />
+    	<ResourceDictionary>
+    		<local:LocalizedStrings x:Key="LocalizedStrings" />
+    		<helpers:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    		<helpers:DecimalToColorConverter x:Key="DecimalToColorConverter" />
+    		<helpers:BooleanToStyleConverter x:Key="BooleanToStyleConverter" />
+    		<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="true" />
+    		<Color x:Key="LowlightBackground">#55476991</Color>
+    		<Color x:Key="HighlightBackground">#FF476991</Color>
+    		<Color x:Key="DefaultBackground">#FF274466</Color>
+    	</ResourceDictionary>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

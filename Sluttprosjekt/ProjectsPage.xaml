@@ -27,25 +27,37 @@
 
     <helpers:PhonePageBase.Resources>
         <DataTemplate x:Key="ProjectItem">
-            <Grid Height="59">
+            <Grid Height="59" Background="{Binding IsSelected, Converter={StaticResource BooleanToStyleConverter}}" Margin="0,0,0,5">
                 <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" FontSize="26.667"/>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MemberItem">
-            <Grid Height="58">
-                <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" FontSize="26.667"/>
+            <Grid Height="58" Margin="0,0,0,5">
+            	<Grid.Background>
+            		<SolidColorBrush Color="{StaticResource LowlightBackground}"/>
+            	</Grid.Background>
+                <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" FontSize="26.667" />
             </Grid>
         </DataTemplate>
     </helpers:PhonePageBase.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding Source={StaticResource Locator}}">
-        <phone:Pivot Title="{Binding ActiveProjectViewModel.ActiveProjectTitle, Mode=OneWay}">
-            <phone:PivotItem Header="lag">
-                <controls:LongListSelector DataContext="{Binding ProjectsViewModel, Source={StaticResource Locator}}" ItemsSource="{Binding ProjectsList}" ItemTemplate="{StaticResource ProjectItem}" SelectedItem="{Binding SelectedProject, Mode=TwoWay}" toolkit:TiltEffect.IsTiltEnabled="True" />
+    <Grid x:Name="LayoutRoot">
+    	<Grid.Background>
+    		<SolidColorBrush Color="{StaticResource HighlightBackground}"/>
+    	</Grid.Background>
+        <phone:Pivot Title="{Binding ActiveProjectViewModel.ActiveProjectTitle,Source={StaticResource Locator}, Mode=OneWay}">
+            <phone:PivotItem Header="lag" Margin="0,28,0,0">
+            	<phone:PivotItem.Background>
+            		<SolidColorBrush Color="{StaticResource DefaultBackground}"/>
+            	</phone:PivotItem.Background>
+                <controls:LongListSelector DataContext="{Binding ProjectsViewModel, Source={StaticResource Locator}}" ItemsSource="{Binding ProjectsList}" ItemTemplate="{StaticResource ProjectItem}" SelectedItem="{Binding SelectedProject, Mode=TwoWay}" toolkit:TiltEffect.IsTiltEnabled="True" Margin="10,10,10,0" />
             </phone:PivotItem>
 
-            <phone:PivotItem Header="folk">
-                <phone:LongListSelector DataContext="{Binding ProjectsViewModel, Source={StaticResource Locator}}"  ItemsSource="{Binding MembersList}" ItemTemplate="{StaticResource MemberItem}"/>
+            <phone:PivotItem Header="folk" Margin="0,28,0,0">
+            	<phone:PivotItem.Background>
+            		<SolidColorBrush Color="{StaticResource DefaultBackground}"/>
+            	</phone:PivotItem.Background>
+                <phone:LongListSelector DataContext="{Binding ProjectsViewModel, Source={StaticResource Locator}}"  ItemsSource="{Binding MembersList}" ItemTemplate="{StaticResource MemberItem}" Margin="10,10,10,0"/>
             </phone:PivotItem>
         </phone:Pivot>
     </Grid>

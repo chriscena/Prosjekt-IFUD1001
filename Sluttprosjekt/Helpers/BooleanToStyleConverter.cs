@@ -2,19 +2,21 @@
 using System.Windows.Data;
 using System.Windows;
 using System.Windows.Media;
+using Sluttprosjekt.Design;
 
 namespace Sluttprosjekt.Helpers
 {
-    public class DecimalToColorConverter : IValueConverter
+    public class BooleanToStyleConverter : IValueConverter
     {
+		
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return ((decimal)value == 0) ? "#00000000" : ((decimal)value < 0) ? "#FF5CE41D" : "#FFF53030";
+            return (bool)value ? ((Color)Application.Current.Resources["HighlightBackground"]).ToString() : ((Color)Application.Current.Resources["LowlightBackground"]).ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return value;
+            return (string)value == (string)Application.Current.Resources["HighlightBackground"];
         }
     }
 }
