@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Sluttprosjekt.Model
@@ -28,6 +29,14 @@ namespace Sluttprosjekt.Model
         /// <typeparam name="T">The type of the entity</typeparam>
         /// <param name="item">The entity to delete</param>
         void Delete<T>(T item) where T : class;
+
+
+        /// <summary>
+        /// Deletes the specified entity from the repository
+        /// </summary>
+        /// <typeparam name="T">The type of the entity</typeparam>
+        /// <param name="item">The entity to delete</param>
+        void DeleteAll<T>(IEnumerable<T> items) where T : class;
 
 
 

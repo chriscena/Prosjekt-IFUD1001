@@ -30,6 +30,14 @@ namespace Sluttprosjekt.Tests
             _inMemoryDataStore.Remove(item);
         }
 
+        public void DeleteAll<T>(IEnumerable<T> items) where T : class
+        {
+            foreach (var item in items)
+            {
+                _inMemoryDataStore.Remove(item);
+            }
+        }
+
         public void Commit()
         {
             InvokeCompleted(EventArgs.Empty);

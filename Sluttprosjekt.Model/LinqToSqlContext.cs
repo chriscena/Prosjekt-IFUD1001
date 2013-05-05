@@ -51,6 +51,11 @@ namespace Sluttprosjekt.Model
             table.DeleteOnSubmit(item);
         }
 
+        public void DeleteAll<T>(IEnumerable<T> items) where T : class
+        {
+            ITable table = _context.GetTable(TableMaps[typeof(T)]);
+            table.DeleteAllOnSubmit(items);
+        }
 
 
         /// <summary>

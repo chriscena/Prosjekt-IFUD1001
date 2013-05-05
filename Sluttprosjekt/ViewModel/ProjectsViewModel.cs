@@ -134,7 +134,7 @@ namespace Sluttprosjekt.ViewModel
         {
             get { return _createProjectCommand ?? (_createProjectCommand = new RelayCommand<RoutedEventArgs>(AddProjectOrMemberIfNeeded)); }
         }
-        private RelayCommand<SelectionChangedEventArgs> _selectDeselectProjectCommand;
+
         private Project _selectedProject;
         private RelayCommand _deleteProjectCommand;
 

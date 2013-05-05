@@ -118,15 +118,9 @@ namespace Sluttprosjekt.Model
             if (activeProject == null) return null;
             var membersToDelete = activeProject.Members.ToList();
             var transactionsToDelete = membersToDelete.SelectMany(m => m.Transactions).ToList();
-            foreach (var transaction in transactionsToDelete)
-            {
-                _dbContext.Delete(transaction);
-            }
-            foreach (var member in membersToDelete)
-            {
-                _dbContext.Delete(member);
-            }
-
+            
+            _dbContext.DeleteAll(transactionsToDelete);
+            _dbContext.DeleteAll(membersToDelete);
             _dbContext.Delete(activeProject);
             try
             {
