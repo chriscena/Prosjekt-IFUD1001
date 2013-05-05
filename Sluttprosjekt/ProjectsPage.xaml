@@ -63,10 +63,10 @@
     </Grid>
     <bar:Bindable.ApplicationBar>
         <bar:BindableApplicationBar DataContext="{Binding ProjectsViewModel, Source={StaticResource Locator}}">
-            <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/new.png"
+            <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/Accounts.png"
                                             Text="nytt lag"
                                             Command="{Binding AddProjectsCommand}" />
-            <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/new.png"
+            <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/User.png"
                                             Text="ny person"
                                             Command="{Binding AddMemberCommand}" />
 
