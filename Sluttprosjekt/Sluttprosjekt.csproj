@@ -109,6 +109,7 @@
     <Compile Include="Helpers\BindingHelper.cs" />
     <Compile Include="Helpers\BooleanToVisibilityConverter.cs" />
     <Compile Include="Helpers\BooleanToStyleConverter.cs" />
+    <Compile Include="Helpers\DecimalToStringConverter.cs" />
     <Compile Include="Helpers\DecimalToColorConverter.cs" />
     <Compile Include="Helpers\IDialogService.cs" />
     <Compile Include="Helpers\INavigationService.cs" />

@@ -15,6 +15,7 @@
     		<local:LocalizedStrings x:Key="LocalizedStrings" />
     		<helpers:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     		<helpers:DecimalToColorConverter x:Key="DecimalToColorConverter" />
+    		<helpers:DecimalToStringConverter x:Key="DecimalToStringConverter" />
     		<helpers:BooleanToStyleConverter x:Key="BooleanToStyleConverter" />
     		<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="true" />
     		<Color x:Key="LowlightBackground">#55476991</Color>
