@@ -29,6 +29,7 @@
         <DataTemplate x:Key="ProjectItem">
             <Grid Height="59" Background="{Binding IsSelected, Converter={StaticResource BooleanToStyleConverter}}" Margin="0,0,0,5">
                 <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" FontSize="26.667"/>
+                <TextBlock Margin="0,10,10,14" TextWrapping="Wrap" Text="{Binding IsSelected, Converter={StaticResource BooleanToActiveStringConverter}}" FontSize="26.667" Opacity="0.5" TextAlignment="Right" HorizontalAlignment="Right" Width="88"/>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MemberItem">
