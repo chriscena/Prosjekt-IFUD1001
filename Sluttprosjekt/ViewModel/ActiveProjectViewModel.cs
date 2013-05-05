@@ -56,7 +56,10 @@ namespace Sluttprosjekt.ViewModel
         private void SetActiveProject(ActiveProjectChanged message)
         {
             ActiveProject = message.ActiveProject;
-            _dataService.SetActiveProject(message.ActiveProject);
+            if (message.ActiveProject == null)
+                _navigationService.Navigate("ProjectsPage");
+            else
+                _dataService.SetActiveProject(message.ActiveProject);
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace Sluttprosjekt.ViewModel
             if (!ProjectsList.Any())
             {
                 DialogService.ShowMessage(
-                    "Det ser ut som at dette er første gang du kjører Spleiselag. Du må derfor opprette et spleiselag og minst ett medlem av laget.",
+                    "Det ser ut som at det ikke er opprettet noen spleiselag. Du må derfor opprette et spleiselag og minst ett medlem av laget.",
                     "Opprette spleiselag", "Fortsett", null);
                 _navigationService.Navigate("AddProjectPage");
             }
@@ -135,6 +136,7 @@ namespace Sluttprosjekt.ViewModel
         }
         private RelayCommand<SelectionChangedEventArgs> _selectDeselectProjectCommand;
         private Project _selectedProject;
+        private RelayCommand _deleteProjectCommand;
 
         public Project SelectedProject
         {
@@ -145,10 +147,34 @@ namespace Sluttprosjekt.ViewModel
                 RaisePropertyChanged(() => SelectedProject);
 
                 if (SelectedProject == null) return;
-                _dataService.SetActiveProject(SelectedProject);
-                UpdateProjectsListProjectChange();
                 MessengerInstance.Send(new ActiveProjectChanged { ActiveProject = SelectedProject });
+                UpdateProjectsListProjectChange();
             }
+        }
+
+        public RelayCommand DeleteProjectCommand { get { return _deleteProjectCommand ?? (_deleteProjectCommand = new RelayCommand(ConfirmDeleteProject)); } }
+
+        private void ConfirmDeleteProject()
+        {
+            DialogService.ShowMessage("Dette vil også slette alle personer og betalinger knyttet til spleiselaget.",
+                                      "Slette spleiselag", "Utfør", "Avbryt", b => { if (b) DeleteActiveProject(); });
+        }
+
+        private void DeleteActiveProject()
+        {
+            Project activeProject = null;
+            try
+            {
+                activeProject = _dataService.DeleteActiveProject();
+            }
+            catch (Exception ex)
+            {
+                DialogService.ShowError(ex, "Sletting feilet", "OK", null);
+                Application.Current.Terminate();
+            }
+            UpdateProjectsListProjectChange();
+            MessengerInstance.Send(new ActiveProjectChanged { ActiveProject = activeProject });
+            _navigationService.GoBack();
         }
     }
 

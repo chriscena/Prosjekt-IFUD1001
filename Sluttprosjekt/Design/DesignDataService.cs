@@ -147,5 +147,10 @@ namespace Sluttprosjekt.Design
                         }
                 };
         }
+
+        public Project DeleteActiveProject()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

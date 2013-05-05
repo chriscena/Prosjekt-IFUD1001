@@ -59,5 +59,9 @@ namespace Sluttprosjekt.Model
         /// </summary>
         /// <returns></returns>
         List<MemberWithTotalDueAmount> GetMembersWithTotalDueAmount();
+        /// <summary>
+        /// Deletes all data related to the active project and sets last project created project as active
+        /// </summary>
+        Project DeleteActiveProject();
     }
 }

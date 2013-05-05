@@ -70,7 +70,11 @@
             <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/User.png"
                                             Text="ny person"
                                             Command="{Binding AddMemberCommand}" />
-
+            <bar:BindableApplicationBar.MenuItems>
+                <bar:BindableApplicationBarMenuItem 
+                                            Text="slett spleiselag"
+                                            Command="{Binding DeleteProjectCommand}" />
+            </bar:BindableApplicationBar.MenuItems>
         </bar:BindableApplicationBar>
     </bar:Bindable.ApplicationBar>
 </helpers:PhonePageBase>

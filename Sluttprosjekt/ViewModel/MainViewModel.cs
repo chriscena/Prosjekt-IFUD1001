@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -54,6 +56,7 @@ namespace Sluttprosjekt.ViewModel
         private RelayCommand _addMemberCommand;
         private RelayCommand _addTransactionCommand;
         private RelayCommand _viewProjectsCommand;
+        private RelayCommand<RoutedEventArgs> _checkProjectCommand;
 
         public RelayCommand ViewProjectsCommand
         {
@@ -94,6 +97,18 @@ namespace Sluttprosjekt.ViewModel
         public ObservableCollection<Transaction> TransactionsList { get; private set; }
 
         public ObservableCollection<Payment> PaymentsList { get; private set; }
+
+        public RelayCommand<RoutedEventArgs> CheckProjectCommand
+        {
+            get { return _checkProjectCommand ?? (_checkProjectCommand = new RelayCommand<RoutedEventArgs>(CheckProject)); }
+        }
+
+        private void CheckProject(RoutedEventArgs obj)
+        {
+            var activeProjectViewModel = SimpleIoc.Default.GetInstance<ActiveProjectViewModel>();
+            if (activeProjectViewModel.ActiveProject == null)
+                _navigationService.Navigate("ProjectsPage");
+        }
 
         private void UpdateListsAfterAdd()
         {

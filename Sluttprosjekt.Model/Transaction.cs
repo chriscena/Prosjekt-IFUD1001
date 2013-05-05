@@ -26,7 +26,7 @@ namespace Sluttprosjekt.Model
         public decimal Amount { get; set; }
 
         private EntityRef<Member> _member;
-        [Association(IsForeignKey = true, ThisKey = "PaidBy", OtherKey = "Id", Storage = "_member")]
+        [Association(IsForeignKey = true, ThisKey = "PaidBy", OtherKey = "Id", Storage = "_member", DeleteRule = "CASCADE")]
         public Member PaidByMember
         {
             get { return _member.Entity; }

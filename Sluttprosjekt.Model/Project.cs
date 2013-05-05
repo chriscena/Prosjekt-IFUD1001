@@ -23,8 +23,8 @@ namespace Sluttprosjekt.Model
         [Column]
         public bool IsSelected { get; set; }
 
-        private EntitySet<Member> _members = new EntitySet<Member>();
-        [Association(ThisKey = "Id", OtherKey = "ProjectId", Storage = "_members")]
+        private readonly EntitySet<Member> _members = new EntitySet<Member>();
+        [Association(ThisKey = "Id", OtherKey = "ProjectId", Storage = "_members", DeleteRule = "CASCADE")]
         public ICollection<Member> Members
         {
             get { return _members; }

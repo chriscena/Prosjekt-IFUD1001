@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using GalaSoft.MvvmLight.Ioc;
 
@@ -107,6 +109,39 @@ namespace Sluttprosjekt.Model
         {
             var members = GetMembers();
             return members.Select(Map).ToList();
+        }
+
+        public Project DeleteActiveProject()
+        {
+            
+            var activeProject = GetActiveProject();
+            if (activeProject == null) return null;
+            var membersToDelete = activeProject.Members.ToList();
+            var transactionsToDelete = membersToDelete.SelectMany(m => m.Transactions).ToList();
+            foreach (var transaction in transactionsToDelete)
+            {
+                _dbContext.Delete(transaction);
+            }
+            foreach (var member in membersToDelete)
+            {
+                _dbContext.Delete(member);
+            }
+
+            _dbContext.Delete(activeProject);
+            try
+            {
+                _dbContext.Commit();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Klarte ikke å slette spleiselaget. Applikasjonen vil nå avslutte så du kan starte på nytt for å slette.", ex);
+            }
+
+            if (!_dbContext.Repository<Project>().Any()) return null;
+
+                var projectToSelect =
+                    _dbContext.Repository<Project>().OrderBy(p => p.Id).LastOrDefault(p => !p.IsSelected);
+            return projectToSelect;
         }
 
         private MemberWithTotalDueAmount Map(Member member)

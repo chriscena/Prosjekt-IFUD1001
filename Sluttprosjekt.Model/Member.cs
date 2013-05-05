@@ -20,7 +20,7 @@ namespace Sluttprosjekt.Model
         public int ProjectId { get; set; }
 
         private EntityRef<Project> _project;
-        [Association(IsForeignKey = true, ThisKey = "ProjectId", OtherKey = "Id", Storage = "_project")]
+        [Association(IsForeignKey = true, ThisKey = "ProjectId", OtherKey = "Id", Storage = "_project", DeleteRule = "CASCADE")]
         public Project Project
         {
             get { return _project.Entity; }
@@ -28,7 +28,7 @@ namespace Sluttprosjekt.Model
         }
 
         private EntitySet<Transaction> _transactions = new EntitySet<Transaction>();
-        [Association(ThisKey = "Id", OtherKey = "PaidBy", Storage = "_transactions")]
+        [Association(ThisKey = "Id", OtherKey = "PaidBy", Storage = "_transactions", DeleteRule = "CASCADE")]
         public ICollection<Transaction> Transactions
         {
             get { return _transactions; }
