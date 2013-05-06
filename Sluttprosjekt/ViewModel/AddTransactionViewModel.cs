@@ -21,6 +21,7 @@ namespace Sluttprosjekt.ViewModel
         {
             _navigationService = navigationService;
             _dataService = dataService;
+            PaidDate = DateTime.Today;
             UpdateMembersList();
         }
 
@@ -78,6 +79,7 @@ namespace Sluttprosjekt.ViewModel
         private Member _payer;
         private ObservableCollection<Member> _membersList = new ObservableCollection<Member>();
         private RelayCommand _cancelCommand;
+        private DateTime _paidDate;
 
         public RelayCommand SaveCommand
         {
@@ -92,6 +94,12 @@ namespace Sluttprosjekt.ViewModel
         public IDialogService DialogService
         {
             get { return ServiceLocator.Current.GetInstance<IDialogService>(); }
+        }
+
+        public DateTime PaidDate
+        {
+            get { return _paidDate; }
+            set { _paidDate = value; RaisePropertyChanged(() => PaidDate); }
         }
 
 
@@ -113,7 +121,7 @@ namespace Sluttprosjekt.ViewModel
                 DialogService.ShowError("Du må fylle inn et gyldig beløp.", "Mangler beløp", "OK", null);
                 return;
             }
-            var transaction = new Transaction {Description = Description, Amount = Amount, PaidBy = Payer.Id, PaidDate = DateTime.Today};
+            var transaction = new Transaction {Description = Description, Amount = Amount, PaidBy = Payer.Id, PaidDate = PaidDate};
             _dataService.SaveTransaction(transaction);
             MessengerInstance.Send(new TransactionAdded());
             _navigationService.GoBack();
