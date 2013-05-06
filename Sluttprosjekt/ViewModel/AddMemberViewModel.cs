@@ -24,7 +24,6 @@ namespace Sluttprosjekt.ViewModel
 
         private string _memberName;
         private RelayCommand _saveCommand;
-        private RelayCommand _cancelCommand;
 
         public string MemberName
         {
@@ -33,11 +32,6 @@ namespace Sluttprosjekt.ViewModel
         }
 
         public RelayCommand SaveCommand { get { return _saveCommand ?? (_saveCommand = new RelayCommand(SaveMember)); } }
-
-        public RelayCommand CancelCommand
-        {
-            get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(() => _navigationService.GoBack())); }
-        }
 
         public IDialogService DialogService
         {

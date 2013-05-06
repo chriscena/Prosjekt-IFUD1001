@@ -23,6 +23,8 @@
     		<Color x:Key="HighlightBackground">#FF476991</Color>
     		<Color x:Key="DefaultBackground">#FF274466</Color>
     		<Color x:Key="PhoneForegroundColor">White</Color>
+    		<Color x:Key="PhoneTextHighContrastColor">White</Color>
+
 
 			<SolidColorBrush x:Key="PhoneForegroundBrush" Color="{StaticResource PhoneForegroundColor}"/>
 			<Style x:Key="PhoneTextStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextBlockBase}">

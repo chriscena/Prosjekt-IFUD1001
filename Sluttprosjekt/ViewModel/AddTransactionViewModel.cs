@@ -78,17 +78,11 @@ namespace Sluttprosjekt.ViewModel
         private decimal _amount;
         private Member _payer;
         private ObservableCollection<Member> _membersList = new ObservableCollection<Member>();
-        private RelayCommand _cancelCommand;
         private DateTime _paidDate;
 
         public RelayCommand SaveCommand
         {
             get { return _saveCommand ?? (_saveCommand = new RelayCommand(SaveTransaction)); }
-        }
-
-        public RelayCommand CancelCommand
-        {
-            get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(() => _navigationService.GoBack())); }
         }
 
         public IDialogService DialogService

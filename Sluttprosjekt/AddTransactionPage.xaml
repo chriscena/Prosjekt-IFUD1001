@@ -30,9 +30,6 @@
             <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/save.png"
                                             Text="lagre"
                                             Command="{Binding SaveCommand}" />
-            <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/cancel.png"
-                                            Text="avbryt"
-                                            Command="{Binding CancelCommand}" />
         </bar:BindableApplicationBar>
     </bar:Bindable.ApplicationBar>
 
@@ -49,8 +46,16 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="{Binding ActiveProjectViewModel.ActiveProjectTitle}" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="ny betaling" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="{Binding ActiveProjectViewModel.ActiveProjectTitle, Source={StaticResource Locator}}" Style="{StaticResource PhoneTextNormalStyle}">
+            	<TextBlock.Foreground>
+            		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+            	</TextBlock.Foreground>
+            </TextBlock>
+            <TextBlock Text="ny betaling" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
+            	<TextBlock.Foreground>
+            		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+            	</TextBlock.Foreground>
+            </TextBlock>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -61,9 +66,17 @@
             <TextBlock HorizontalAlignment="Left" Margin="20,231,0,0" TextWrapping="Wrap" Text="betaler" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,119,0,0" TextWrapping="Wrap" Text="beskrivelse" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="20,339,0,0" TextWrapping="Wrap" Text="beløp" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="72" Margin="20,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Text" Text="{Binding Description, Mode=TwoWay}"/>
+            <TextBox HorizontalAlignment="Left" Height="72" Margin="20,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Text" Text="{Binding Description, Mode=TwoWay}">
+            	<TextBox.Foreground>
+            		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+            	</TextBox.Foreground>
+            </TextBox>
             <toolkit:ListPicker ItemsSource="{Binding MembersList}" ItemTemplate="{StaticResource MemberItem}" HorizontalAlignment="Left" Margin="29,258,0,0" VerticalAlignment="Top" SelectedItem="{Binding Payer, Mode=TwoWay}" Canvas.ZIndex="100"/>
-            <TextBox HorizontalAlignment="Left" Height="72" Margin="20,366,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Number" Text="{Binding Amount, Mode=TwoWay}"/>
+            <TextBox HorizontalAlignment="Left" Height="72" Margin="20,366,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Number" Text="{Binding Amount, Mode=TwoWay}">
+            	<TextBox.Foreground>
+            		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+            	</TextBox.Foreground>
+            </TextBox>
             <TextBlock HorizontalAlignment="Left" Margin="20,10,0,0" TextWrapping="Wrap" Text="dato" VerticalAlignment="Top"/>
             <toolkit:DatePicker HorizontalAlignment="Left" Margin="20,37,0,0" VerticalAlignment="Top" Value="{Binding PaidDate, Mode=TwoWay}" />
 

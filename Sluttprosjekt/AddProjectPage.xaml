@@ -27,8 +27,16 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="SPLEISELAG" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="nytt spleiselag" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="SPLEISELAG" Style="{StaticResource PhoneTextNormalStyle}">
+            	<TextBlock.Foreground>
+            		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+            	</TextBlock.Foreground>
+            </TextBlock>
+            <TextBlock Text="nytt spleiselag" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
+            	<TextBlock.Foreground>
+            		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+            	</TextBlock.Foreground>
+            </TextBlock>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -37,7 +45,11 @@
         		<SolidColorBrush Color="{StaticResource DefaultBackground}"/>
         	</Grid.Background>
             <TextBlock HorizontalAlignment="Left" Margin="20,10,0,0" TextWrapping="Wrap" Text="navn" VerticalAlignment="Top" RenderTransformOrigin="0.414,-0.456"/>
-            <TextBox Text="{Binding ProjectName, Mode=TwoWay}" HorizontalAlignment="Left" Height="72" Margin="10,37,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="PersonalFullName"/>
+            <TextBox Text="{Binding ProjectName, Mode=TwoWay}" HorizontalAlignment="Left" Height="72" Margin="10,37,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="PersonalFullName">
+            	<TextBox.Foreground>
+            		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+            	</TextBox.Foreground>
+            </TextBox>
 
         </Grid>
     </Grid>
@@ -46,9 +58,7 @@
             <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/save.png"
                                             Text="lagre"
                                             Command="{Binding SaveCommand}" />
-            <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/cancel.png"
-                                            Text="avbryt"
-                                            Command="{Binding CancelCommand}" />
+
         </bar:BindableApplicationBar>
     </bar:Bindable.ApplicationBar>
 
