@@ -5,36 +5,36 @@ namespace Sluttprosjekt.Helpers
 {
     public interface IDialogService
     {
-        Task ShowError(
+        void ShowError(
             string message,
             string title,
             string buttonText,
             Action afterHideCallback);
 
-        Task ShowError(
+        void ShowError(
             Exception error,
             string title,
             string buttonText,
             Action afterHideCallback);
 
-        Task ShowMessage(
+        void ShowMessage(
             string message,
             string title);
 
-        Task ShowMessage(
+        void ShowMessage(
             string message,
             string title,
             string buttonText,
             Action afterHideCallback);
 
-        Task ShowMessage(
+        void ShowMessage(
             string message,
             string title,
             string buttonConfirmText,
             string buttonCancelText,
             Action<bool> afterHideCallback);
 
-        Task ShowMessageBox(
+        void ShowMessageBox(
             string message,
             string title);
     }

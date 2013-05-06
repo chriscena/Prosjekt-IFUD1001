@@ -43,7 +43,7 @@
         </Grid>
     </Grid>
     <bar:Bindable.ApplicationBar>
-        <bar:BindableApplicationBar>
+        <bar:BindableApplicationBar FontFamily="Portable User Interface">
             <bar:BindableApplicationBarButton IconUri="/Assets/AppBar/save.png"
                                             Text="lagre"
                                             Command="{Binding SaveCommand}"/>

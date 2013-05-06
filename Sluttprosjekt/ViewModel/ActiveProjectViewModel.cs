@@ -20,7 +20,7 @@ namespace Sluttprosjekt.ViewModel
         {
             _dataService = dataService;
             _navigationService = navigationService;
-            MessengerInstance.Register<ActiveProjectChanged>(this, SetActiveProject);
+            MessengerInstance.Register<ActiveProjectChanging>(this, SetActiveProject);
             GetActiveProject();
             if (ActiveProject == null)
                 _navigationService.Navigate("ProjectsPage");
@@ -53,14 +53,21 @@ namespace Sluttprosjekt.ViewModel
             ActiveProject = _dataService.GetActiveProject();
         }
 
-        private void SetActiveProject(ActiveProjectChanged message)
+        private void SetActiveProject(ActiveProjectChanging message)
         {
             ActiveProject = message.ActiveProject;
             if (message.ActiveProject == null)
                 _navigationService.Navigate("ProjectsPage");
             else
                 _dataService.SetActiveProject(message.ActiveProject);
+            MessengerInstance.Send(new ActiveProjectChanged { ActiveProject = ActiveProject});
         }
+    }
+
+
+    public class ActiveProjectChanging
+    {
+        public Project ActiveProject { get; set; }
     }
 
     public class ActiveProjectChanged

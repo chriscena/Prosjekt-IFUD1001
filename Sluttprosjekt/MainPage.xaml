@@ -13,7 +13,7 @@
                        SupportedOrientations="PortraitOrLandscape"
                        Orientation="Portrait"
                        shell:SystemTray.IsVisible="True"
-                        DataContext="{Binding Main, Source={StaticResource Locator}}">
+                        DataContext="{Binding Main, Source={StaticResource Locator}}" FontFamily="Portable User Interface">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -90,6 +90,9 @@
         </DataTemplate>
 
     </helpers:PhonePageBase.Resources>
+	<helpers:PhonePageBase.Foreground>
+		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+	</helpers:PhonePageBase.Foreground>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot">
     	<Grid.Background>

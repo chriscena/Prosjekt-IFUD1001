@@ -37,7 +37,8 @@ namespace Sluttprosjekt.ViewModel
 #if DEBUG
             if (IsInDesignMode)
             {
-                //UpdateProjectsList();
+                UpdateProjectsList();
+                UpdateMembersList();
             }
 #endif
         }
@@ -147,7 +148,7 @@ namespace Sluttprosjekt.ViewModel
                 RaisePropertyChanged(() => SelectedProject);
 
                 if (SelectedProject == null) return;
-                MessengerInstance.Send(new ActiveProjectChanged { ActiveProject = SelectedProject });
+                MessengerInstance.Send(new ActiveProjectChanging { ActiveProject = SelectedProject });
                 UpdateProjectsListProjectChange();
             }
         }
@@ -173,7 +174,7 @@ namespace Sluttprosjekt.ViewModel
                 Application.Current.Terminate();
             }
             UpdateProjectsListProjectChange();
-            MessengerInstance.Send(new ActiveProjectChanged { ActiveProject = activeProject });
+            MessengerInstance.Send(new ActiveProjectChanging { ActiveProject = activeProject });
             _navigationService.GoBack();
         }
     }

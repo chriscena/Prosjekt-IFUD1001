@@ -22,6 +22,12 @@
     		<Color x:Key="LowlightBackground">#55476991</Color>
     		<Color x:Key="HighlightBackground">#FF476991</Color>
     		<Color x:Key="DefaultBackground">#FF274466</Color>
+    		<Color x:Key="PhoneForegroundColor">White</Color>
+
+			<SolidColorBrush x:Key="PhoneForegroundBrush" Color="{StaticResource PhoneForegroundColor}"/>
+			<Style x:Key="PhoneTextStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextBlockBase}">
+				<Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
+			</Style>
     	</ResourceDictionary>
     </Application.Resources>
 

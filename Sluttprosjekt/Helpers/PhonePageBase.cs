@@ -42,7 +42,7 @@ namespace Sluttprosjekt.Helpers
 
         #region Implementation of IDialogService
 
-        public virtual async Task ShowError(string message, string title, string buttonText, Action hideCallback)
+        public virtual void ShowError(string message, string title, string buttonText, Action hideCallback)
         {
             if (Dialog != null)
             {
@@ -63,7 +63,7 @@ namespace Sluttprosjekt.Helpers
 #endif
         }
 
-        public virtual async Task ShowError(Exception error, string title, string buttonText, Action hideCallback)
+        public virtual void ShowError(Exception error, string title, string buttonText, Action hideCallback)
         {
             if (Dialog != null)
             {
@@ -84,12 +84,13 @@ namespace Sluttprosjekt.Helpers
 #endif
         }
 
-        public virtual async Task ShowMessage(string message, string title)
+        public virtual void ShowMessage(string message, string title)
         {
-            await ShowMessage(message, title ?? string.Empty, null, null);
+            
+            ShowMessage(message, title ?? string.Empty, null, null);
         }
 
-        public virtual async Task ShowMessage(string message, string title, int timeoutSeconds)
+        public virtual void ShowMessage(string message, string title, int timeoutSeconds)
         {
             if (Dialog != null)
             {
@@ -103,14 +104,14 @@ namespace Sluttprosjekt.Helpers
 #if DEBUG
             else
             {
-                await ShowMessage(message, title);
+                ShowMessage(message, title);
             }
 #else
             throw new InvalidOperationException("Cannnot find Dialog control");
 #endif
         }
 
-        public virtual async Task ShowMessage(string message, string title, string buttonText, Action hideCallback)
+        public virtual void ShowMessage(string message, string title, string buttonText, Action hideCallback)
         {
             if (Dialog != null)
             {
@@ -131,7 +132,7 @@ namespace Sluttprosjekt.Helpers
 #endif
         }
 
-        public virtual async Task ShowMessage(
+        public virtual void ShowMessage(
             string message, string title, string confirmButtonText, string cancelButtonText, Action<bool> callback)
         {
             if (Dialog != null)
@@ -153,7 +154,7 @@ namespace Sluttprosjekt.Helpers
 #endif
         }
 
-        public virtual async Task ShowMessageBox(string message, string title)
+        public virtual void ShowMessageBox(string message, string title)
         {
             MessageBox.Show(message, title, MessageBoxButton.OK);
         }
