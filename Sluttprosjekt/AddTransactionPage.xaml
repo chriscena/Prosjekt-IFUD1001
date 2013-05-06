@@ -68,13 +68,13 @@
             <TextBlock HorizontalAlignment="Left" Margin="20,339,0,0" TextWrapping="Wrap" Text="beløp" VerticalAlignment="Top"/>
             <TextBox HorizontalAlignment="Left" Height="72" Margin="20,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Text" Text="{Binding Description, Mode=TwoWay}">
             	<TextBox.Foreground>
-            		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+            		<SolidColorBrush Color="{StaticResource DarkForeground}"/>
             	</TextBox.Foreground>
             </TextBox>
-            <toolkit:ListPicker ItemsSource="{Binding MembersList}" ItemTemplate="{StaticResource MemberItem}" HorizontalAlignment="Left" Margin="29,258,0,0" VerticalAlignment="Top" SelectedItem="{Binding Payer, Mode=TwoWay}" Canvas.ZIndex="100"/>
+            <toolkit:ListPicker ItemsSource="{Binding MembersList}" ItemTemplate="{StaticResource MemberItem}" HorizontalAlignment="Left" Margin="29,258,0,0" VerticalAlignment="Top" SelectedItem="{Binding Payer, Mode=TwoWay}" Canvas.ZIndex="100" Width="427"/>
             <TextBox HorizontalAlignment="Left" Height="72" Margin="20,366,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="456" InputScope="Number" Text="{Binding Amount, Mode=TwoWay}">
             	<TextBox.Foreground>
-            		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+            		<SolidColorBrush Color="{StaticResource DarkForeground}"/>
             	</TextBox.Foreground>
             </TextBox>
             <TextBlock HorizontalAlignment="Left" Margin="20,10,0,0" TextWrapping="Wrap" Text="dato" VerticalAlignment="Top"/>

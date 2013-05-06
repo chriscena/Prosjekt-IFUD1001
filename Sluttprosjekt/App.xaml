@@ -30,6 +30,7 @@
 			<Style x:Key="PhoneTextStyle" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextBlockBase}">
 				<Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
 			</Style>
+			<Color x:Key="DarkForeground">Black</Color>
     	</ResourceDictionary>
     </Application.Resources>
 

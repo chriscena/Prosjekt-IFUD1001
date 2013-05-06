@@ -6,6 +6,9 @@ using Sluttprosjekt.Design;
 
 namespace Sluttprosjekt.Helpers
 {
+    /// <summary>
+    /// Converts a boolean value to highlight background color when true or default background when false.
+    /// </summary>
     public class BooleanToStyleConverter : IValueConverter
     {
 		

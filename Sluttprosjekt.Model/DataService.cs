@@ -18,8 +18,6 @@ namespace Sluttprosjekt.Model
         public DataService()
         {
             var dataContext = new SpleiselagDataContext("isostore:/SpleiseDB.sdf");
-            //if (dataContext.DatabaseExists())
-            //    dataContext.DeleteDatabase();
             if (!dataContext.DatabaseExists())
                 dataContext.CreateDatabase();
             _dbContext = new LinqToSqlContext(dataContext);

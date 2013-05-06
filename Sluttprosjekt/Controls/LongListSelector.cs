@@ -9,6 +9,7 @@ using System.Windows.Controls;
 namespace Sluttprosjekt.Controls
 {
     /// <summary>
+    /// Implementation of a long list selector with bindable SelectedItem
     /// http://dotnet-redzone.blogspot.no/2012/11/windows-phone-8longlistselector.html
     /// </summary>
     public class LongListSelector : Microsoft.Phone.Controls.LongListSelector

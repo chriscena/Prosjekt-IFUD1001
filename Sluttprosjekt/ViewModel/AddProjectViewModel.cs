@@ -54,7 +54,7 @@ namespace Sluttprosjekt.ViewModel
 
             var project = new Project { Name = ProjectName };
             _dataService.SaveProject(project);
-            MessengerInstance.Send(new ActiveProjectChanged { ActiveProject = project });
+            MessengerInstance.Send(new ActiveProjectChanging { ActiveProject = project });
             MessengerInstance.Send(new ProjectAdded());
             _navigationService.GoBack();
         }

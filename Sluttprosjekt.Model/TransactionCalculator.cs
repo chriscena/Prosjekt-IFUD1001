@@ -19,6 +19,11 @@ namespace Sluttprosjekt.Model
             _dataService = dataService;
         }
 
+        /// <summary>
+        /// Calculates total due payment for a member given as their share of the total cost excluding their expenses.
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
         public decimal GetTotalDuePaymentForMember(int memberId)
         {
             var sumPayed = _dataService.GetTransactions().Sum(t => t.Amount);
@@ -28,6 +33,11 @@ namespace Sluttprosjekt.Model
             return (sumPayed/countMembers) - memberPayed;
         }
 
+        /// <summary>
+        /// Returns a list of payments, with a payer, a payee and the due amount.
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
         public List<Payment> GetDuePayments(int projectId)
         {
             var duePayments =

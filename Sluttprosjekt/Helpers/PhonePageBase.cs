@@ -7,6 +7,9 @@ using Microsoft.Phone.Controls;
 
 namespace Sluttprosjekt.Helpers
 {
+    /// <summary>
+    /// Base class for phone pages, with an implementation of IDialogService.
+    /// </summary>
     public class PhonePageBase : PhoneApplicationPage, IDialogService
     {
         public CustomMessageBox Dialog

@@ -5,6 +5,9 @@ using System.Windows.Media;
 
 namespace Sluttprosjekt.Helpers
 {
+    /// <summary>
+    /// Converts a decimal value to green when negative, red when positive or transparent when 0.
+    /// </summary>
     public class DecimalToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

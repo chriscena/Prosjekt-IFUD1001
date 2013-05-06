@@ -5,6 +5,9 @@ using Sluttprosjekt.Model;
 
 namespace Sluttprosjekt.Design
 {
+    /// <summary>
+    /// Provides sample data to Visual Studio Designer and Blend.
+    /// </summary>
     public class DesignDataService : IDataService
     {
         public void SaveProject(Project project)

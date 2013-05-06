@@ -46,9 +46,9 @@
         		<SolidColorBrush Color="{StaticResource DefaultBackground}"/>
         	</Grid.Background>
             <TextBlock HorizontalAlignment="Left" Margin="20,10,0,0" TextWrapping="Wrap" Text="navn" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="72" Margin="20,37,10,0" TextWrapping="Wrap" Text="{Binding MemberName, Mode=TwoWay}" VerticalAlignment="Top" Width="456" InputScope="PersonalFullName">
+            <TextBox HorizontalAlignment="Left" Height="72" Margin="20,37,10,0" TextWrapping="Wrap" Text="{Binding MemberName, Mode=TwoWay}" VerticalAlignment="Top" Width="456" InputScope="PersonalFullName" Background="#BFFFFFFF">
             	<TextBox.Foreground>
-            		<SolidColorBrush Color="{StaticResource PhoneForegroundColor}"/>
+            		<SolidColorBrush Color="{StaticResource DarkForeground}"/>
             	</TextBox.Foreground>
             </TextBox>
 

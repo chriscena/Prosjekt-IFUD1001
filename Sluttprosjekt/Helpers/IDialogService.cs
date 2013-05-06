@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace Sluttprosjekt.Helpers
 {
+    /// <summary>
+    /// The dialog service allows the ViewModel to trigger dialogs in the View.
+    /// </summary>
     public interface IDialogService
     {
         void ShowError(

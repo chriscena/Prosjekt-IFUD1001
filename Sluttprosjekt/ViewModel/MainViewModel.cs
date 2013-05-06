@@ -15,8 +15,6 @@ namespace Sluttprosjekt.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private readonly IDataService _dataService;
-        private readonly INavigationService _navigationService;
 
         public MainViewModel(INavigationService navigationService, IDataService dataService)
         {
@@ -34,38 +32,24 @@ namespace Sluttprosjekt.ViewModel
             UpdateMembersList();
             UpdateTransactionsList();
             UpdatePayments();
-#if DEBUG
-            if (IsInDesignMode)
-            {
-                //Refresh();
-            }
-#endif
         }
 
-        private void UpdatePayments()
+
+        public ObservableCollection<MemberWithTotalDueAmount> MembersList { get; private set; }
+        public ObservableCollection<Transaction> TransactionsList { get; private set; }
+        public ObservableCollection<Payment> PaymentsList { get; private set; }
+
+        public RelayCommand<RoutedEventArgs> CheckProjectCommand
         {
-            var list = _dataService.GetPayments();
-            PaymentsList.Clear();
-            foreach (var payment in list)
-            {
-                PaymentsList.Add(payment);
-            }
+            get { return _checkProjectCommand ?? (_checkProjectCommand = new RelayCommand<RoutedEventArgs>(CheckProject)); }
         }
-
-
-        private RelayCommand _addMemberCommand;
-        private RelayCommand _addTransactionCommand;
-        private RelayCommand _viewProjectsCommand;
-        private RelayCommand<RoutedEventArgs> _checkProjectCommand;
 
         public RelayCommand ViewProjectsCommand
         {
             get
             {
                 return _viewProjectsCommand
-                    ?? (_viewProjectsCommand = new RelayCommand(() =>
-                                              _navigationService.Navigate("ProjectsPage")
-                                          ));
+                    ?? (_viewProjectsCommand = new RelayCommand(() => _navigationService.Navigate("ProjectsPage")));
             }
         }
 
@@ -92,16 +76,13 @@ namespace Sluttprosjekt.ViewModel
             get { return ServiceLocator.Current.GetInstance<IDialogService>(); }
         }
 
-        public ObservableCollection<MemberWithTotalDueAmount> MembersList { get; private set; }
+        private readonly IDataService _dataService;
+        private readonly INavigationService _navigationService;
+        private RelayCommand _addMemberCommand;
+        private RelayCommand _addTransactionCommand;
+        private RelayCommand _viewProjectsCommand;
+        private RelayCommand<RoutedEventArgs> _checkProjectCommand;
 
-        public ObservableCollection<Transaction> TransactionsList { get; private set; }
-
-        public ObservableCollection<Payment> PaymentsList { get; private set; }
-
-        public RelayCommand<RoutedEventArgs> CheckProjectCommand
-        {
-            get { return _checkProjectCommand ?? (_checkProjectCommand = new RelayCommand<RoutedEventArgs>(CheckProject)); }
-        }
 
         private void CheckProject(RoutedEventArgs obj)
         {
@@ -129,6 +110,16 @@ namespace Sluttprosjekt.ViewModel
             foreach (var transaction in list)
             {
                 TransactionsList.Add(transaction);
+            }
+        }
+
+        private void UpdatePayments()
+        {
+            var list = _dataService.GetPayments();
+            PaymentsList.Clear();
+            foreach (var payment in list)
+            {
+                PaymentsList.Add(payment);
             }
         }
 

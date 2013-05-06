@@ -9,9 +9,14 @@ using Microsoft.Phone.Controls;
 
 namespace Sluttprosjekt.Helpers
 {
+    /// <summary>
+    /// A helper class for triggering INotifyPropertyChanged when using app bar.
+    /// </summary>
     public static class BindingHelper
     {
-        
+        /// <summary>
+        /// Updates the binding source of the control currently in focus, to trigger INotifyPropertyChanged.
+        /// </summary>
         public static void UpdateSource()
         {
             var element = FocusManager.GetFocusedElement();
